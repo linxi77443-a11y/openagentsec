@@ -56,11 +56,29 @@ coverage.xml
 *.tmp
 *_log.jsonl
 logs/
+.local/
+*.docx
+
+# Environment and local configuration
 .env
 .env.*
-.local/
+!.env.example
+!.env.sample
 config/agent_adapters.local.yaml
-*.docx
+*.local.yaml
+
+# Local secrets and credential material (keep out of git)
+.secrets/
+secrets.local.*
+credentials.local.*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
 
 # IDE & Tooling Caches
 .qoder/
@@ -72,8 +90,3 @@ node_modules/
 # Historical workbench and local live dumps (not in the public v1.x snapshot)
 legacy/
 artifacts/
-
-# Local secrets (keep out of git)
-*.local.yaml
-*.pem
-*.key
