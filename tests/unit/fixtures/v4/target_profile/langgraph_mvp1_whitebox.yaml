@@ -1,0 +1,35 @@
+target_id: TARGET-LANGGRAPH-MVP1-WHITEBOX
+target_type: langgraph
+target_version: "0.6.11"
+environment: test
+identities:
+  - user:synthetic_analyst_01
+tenants:
+  - tenant_synthetic_alpha
+roles:
+  - data_viewer
+tools:
+  - query_public_kb
+  - export_internal_docs
+resources:
+  - res:public_knowledge_base
+  - res:restricted_internal_docs
+rag_sources:
+  - rag:public_help_center
+memory_stores:
+  - session_memory:langgraph_memory_saver
+approval_points:
+  - point:export_authorization
+connectors: []
+runtime_capabilities:
+  - capability:state_graph_node_execution
+  - capability:memory_saver_checkpointing
+  - capability:whitebox_tool_interceptor
+output_channels:
+  - channel:direct_message_output
+observability:
+  model_response: observable
+  tool_trace: observable
+  runtime_state: observable
+  memory_state: observable
+  audit_event: observable

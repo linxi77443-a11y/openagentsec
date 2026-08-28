@@ -1,0 +1,41 @@
+# Phase-92K — SHARED Asset Declarations
+---
+phase: 92K
+task_id: M-BATCH-WS-SHARED
+
+declarations:
+  assessment_execution_performed: false
+  capability_value_declared: false
+  risk_level_declared: false
+  coverage_change_claimed: false
+  registered_module: false
+  coverage_credit_granted: false
+
+shared_assets:
+  - file: "batch_runtime/shared/fake_tool_catalog.yaml"
+    version: "batch-rt-001-v1"
+    purpose: "fake tool definitions for M19/M14/M39 runtime"
+    prd_mapping: "原 PRD §11.1 Matrix Anchor"
+  - file: "batch_runtime/shared/runtime_adapter.yaml"
+    version: "batch-rt-001-v1"
+    purpose: "tool trace → fake runtime decision adapter"
+    prd_mapping: "原 PRD §11.4 runtime adapter"
+  - file: "batch_runtime/shared/scorecard_schema.yaml"
+    version: "batch-rt-001-v1"
+    purpose: "standardized scorecard structure"
+    prd_mapping: "原 PRD §10 scorecard schema"
+
+consistency_checks:
+  duplicate_ids: 0
+  path_conflicts: 0
+  schema_forks: 0
+  registry_modifications: 0
+
+prd_references:
+  - "原 PRD §10 — 核心资产链"
+  - "原 PRD §11.1 — Matrix Anchor"
+  - "原 PRD §11.2 — Parser Regression Guard"
+  - "原 PRD §11.3 — validation schema"
+  - "原 PRD §11.4 — runtime adapter"
+  - "v2.0 §2.3 — 扩展工作不重写既有 coverage_status"
+  - "v3.1 §9 — Registry 一致性治理"

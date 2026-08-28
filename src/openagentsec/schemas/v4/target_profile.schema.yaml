@@ -1,0 +1,105 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+title: TargetProfile
+description: Target security properties and observable capabilities schema for OpenAgentSec (PRD v4.0.2 §7).
+type: object
+required:
+  - target_id
+  - target_type
+  - target_version
+  - environment
+  - identities
+  - tenants
+  - roles
+  - tools
+  - resources
+  - rag_sources
+  - memory_stores
+  - approval_points
+  - connectors
+  - runtime_capabilities
+  - output_channels
+  - observability
+additionalProperties: false
+
+properties:
+  target_id:
+    type: string
+    pattern: "^[a-zA-Z0-9._:-]{1,128}$"
+  target_type:
+    type: string
+    pattern: "^[a-z][a-z0-9_-]{0,63}$"
+  target_version:
+    type: string
+    pattern: "^[a-zA-Z0-9._-]{1,64}$"
+  environment:
+    type: string
+    enum:
+      - synthetic
+      - test
+      - staging
+      - production
+  identities:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  tenants:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  roles:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  tools:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  resources:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  rag_sources:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  memory_stores:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  approval_points:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  connectors:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  runtime_capabilities:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  output_channels:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+  observability:
+    type: object
+    propertyNames:
+      pattern: "^[a-z][a-z0-9_]{0,63}$"
+    additionalProperties:
+      type: string
+      enum:
+        - observable
+        - unobservable
+        - partially_observable

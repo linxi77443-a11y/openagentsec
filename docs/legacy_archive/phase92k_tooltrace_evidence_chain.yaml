@@ -1,0 +1,36 @@
+# Phase-92K — Tool Trace → Fake Runtime Evidence Chain
+---
+phase: 92K
+task_id: M-BATCH-WS-TOOLTRACE
+
+evidence_chain:
+  source_trace_ref: "batch_runtime/tooltrace_integration/module_mvp_corpus.yaml"
+  normalization_result: "batch_runtime/tooltrace_integration/execution_results.json"
+  fake_runtime_decision: "batch_runtime/tooltrace_integration/tooltrace_runtime_integration_result.yaml"
+  runtime_evidence_ref: "batch_runtime/tooltrace_integration/capability_scorecard.yaml"
+
+trace_fields_validated:
+  - tool_name: "must start with <SIM_TOOL_ or fake_"
+  - tool_status: "allowed/blocked/approval_required/invalid_tool"
+  - data_classification: "public/internal/confidential/secret/credential/pii/salary"
+  - role_required: "must be non-empty"
+  - tenant_id: "must match requestor (cross-tenant detection)"
+  - resource_owner: "must match requestor (cross-user detection)"
+  - action_type: "read/write/export/email/aggregate/suggest"
+
+backward_compatibility:
+  v1_0_compatible: true
+  v0_9_rejected: true
+  test_entry: "BTT-A013 (v1.0 compatible trace → allowed)"
+  rejected_entry: "BTT-A012 (v0.9 schema → blocked)"
+
+real_tool_execution_allowed: false
+coverage_credit: 0
+coverage_credit_reason: "shared integration asset, not a module"
+
+prd_references:
+  - "原 PRD §9.14 — Model Tool Trace → Fake Runtime Integration"
+  - "原 PRD §11.4 — runtime adapter"
+  - "原 PRD §13 — 工程事项"
+  - "v2.0 §4 — 统一安全边界"
+  - "v3.1 §3.2-§3.3 — 模拟红队能力矩阵"

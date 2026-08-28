@@ -1,0 +1,301 @@
+# Phase-90A Asset Inventory
+# Read-only snapshot of all project assets as of 2026-07-18
+# design_gate_only: no new assets created
+
+inventory_version: "1.0"
+phase: "90A"
+date: "2026-07-18"
+type: "design_gate_read_only"
+
+# ============================================================
+# Module Registry Summary
+# ============================================================
+
+modules:
+  total: 50
+  v1_p0: 23
+  v1_p1: 13
+  v1_p2: 9
+  v2: 8
+  adv_items: 5
+  all_mvp_complete: true
+  registry_version: "1.0.11"
+
+# ============================================================
+# Adversarial Playbooks
+# ============================================================
+
+playbooks:
+  mvp_playbooks:
+    count: 90
+    description: "Each module has ~1-2 MVP playbook directories with 10 entries (8 attack + 2 control)"
+    total_entries_estimate: 900
+  full_corpus_playbooks:
+    count: 40
+    description: "Full corpus directories with run_config.yaml for comprehensive testing"
+  adv_playbooks:
+    count: 12
+    list:
+      - "adv_multilang_001 (17 entries, 4 language variants)"
+      - "opposition_induction_mvp"
+      - "business_action_induction_mvp"
+      - "simulated_exfiltration_attempt_mvp"
+      - "service_account_abuse_mvp"
+      - "tool_invocation_abuse_mvp"
+      - "tool_argument_pollution_mvp"
+      - "role_boundary_bypass_mvp"
+      - "multi_turn_boundary_erosion_mvp"
+      - "indirect_prompt_injection_mvp"
+      - "direct_prompt_injection_mvp"
+      - "approval_bypass_mvp"
+  total_playbook_yaml_files: 100
+  total_run_config_yaml_files: 70
+
+# ============================================================
+# Execution Results
+# ============================================================
+
+execution_results:
+  result_yaml_files: 100
+  execution_results_json_files: 100
+  capability_scorecard_files: "present_for_all_executed_modules"
+
+# ============================================================
+# Attack Chain Assets
+# ============================================================
+
+attack_chain:
+  engine_design:
+    path: "docs/phase86a_ai_red_team_attack_chain_engine_design.md"
+    status: "design_complete"
+  schema_freeze:
+    path: "executions/phase86b_schema_freeze/authorized_attack_chain_schema.yaml"
+    status: "schema_frozen"
+  state_machine:
+    path: "executions/phase86b_schema_freeze/attack_chain_state_machine.yaml"
+    status: "frozen"
+  poc_code:
+    path: "attack_chain_poc/"
+    files: ["attack_chain_engine.py", "attack_chain_poc.py"]
+    status: "prototype_exists"
+  cross_module_path_schema:
+    path: "executions/phase93a_cross_module_attack_path_design/attack_path_schema.yaml"
+    status: "design_complete"
+  propagation_dynamics:
+    path: "Phase 93A attack propagation dynamics"
+    status: "design_complete"
+    components:
+      - "propagation probability formula"
+      - "decay model"
+      - "amplification factors"
+      - "5 cross-module propagation rules"
+      - "Markov degradation prediction"
+      - "critical decay nodes (M47: 0.35, M50: 0.45)"
+      - "3 feedback loop dynamics"
+
+# ============================================================
+# Mock Fixtures (Phase 88A)
+# ============================================================
+
+mock_fixtures:
+  path: "mock_fixtures/phase88a/"
+  total_files: 13
+  status: "mock_fixture_candidate"
+  coverage:
+    attack_chains: "10 chains, 12 stages"
+    attack_nodes: "14 nodes"
+    state_machine_transitions: "12 transitions"
+    defense_state_events: "17 events, 7 states"
+    safety_boundary_assertions: "14 assertions, 10 types"
+    red_blue_purple_mapping: "5 triples"
+    evidence_traces: "6 traces"
+    validator_results: "14 checks all passed"
+    result_schema: "1 file"
+    validator_checklist: "20 items all passed"
+  safety:
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    synthetic_only: true
+    no_code_implementation: true
+    no_execution: true
+    candidate_level_only: true
+
+# ============================================================
+# Dashboard Assets
+# ============================================================
+
+dashboard:
+  design:
+    path: "docs/phase87a_ai_security_assessment_dashboard_design.md"
+    status: "design_complete"
+  data_contract:
+    path: "executions/phase87a_dashboard_design/dashboard_data_contract.yaml"
+    status: "frozen"
+  layout_blueprint:
+    path: "executions/phase87a_dashboard_design/dashboard_layout_blueprint.yaml"
+    status: "frozen"
+  engine_panel_spec:
+    path: "executions/phase87a_dashboard_design/red_team_engine_panel_spec.yaml"
+    status: "frozen"
+  isolation_prototype:
+    path: "red_team/phase89b/"
+    total_files: 16
+    status: "isolation_prototype_implemented"
+    includes:
+      - "static fixture (JSON)"
+      - "data sync config"
+      - "view configs (module coverage, path coverage, M50 consistency, safety statement)"
+      - "navigation update"
+      - "validation scripts (3)"
+      - "UI text audit (zh)"
+      - "no-attack-engine check"
+      - "no-external-network check"
+      - "no-registry-credit check"
+  legacy:
+    - "dashboard/atlas_dashboard.html"
+    - "dashboard/dashboard-redesign-prototype.html"
+
+# ============================================================
+# Schemas
+# ============================================================
+
+schemas:
+  attack_chain:
+    path: "executions/phase86b_schema_freeze/authorized_attack_chain_schema.yaml"
+    status: "frozen"
+  capability_scorecard:
+    path: "executions/phase86b_schema_freeze/capability_scorecard_schema.yaml"
+    status: "frozen"
+  dashboard:
+    - "executions/phase87a_dashboard_design/phase87a_result_schema.yaml"
+    - "executions/phase87a_dashboard_design/visualization_input_schema.yaml"
+    - "executions/phase87a_dashboard_design/attack_chain_propagation_view_spec.yaml"
+  canonical_capability_risk:
+    path: "canonical_capability_risk_schema.yaml"
+    status: "defined"
+  canonical_metric_decision:
+    path: "canonical_metric_schema_decision.yaml"
+    status: "defined"
+  cross_module_attack_path:
+    path: "executions/phase93a_cross_module_attack_path_design/attack_path_schema.yaml"
+    status: "design_complete"
+  identity_graph_kernel:
+    path: "design/ai_safety_identity_graph_kernel/"
+    files: ["DESIGN.md", "kernel_config.yaml", "integration_schema.yaml"]
+    status: "design_complete"
+  adversarial_validation:
+    path: "capability_modules/schemas/adversarial_validation_schema.yaml"
+    status: "defined"
+
+# ============================================================
+# Red Team Reports
+# ============================================================
+
+red_team_reports:
+  total_reports_indexed: 14
+  total_reports_on_disk: 15
+  note: "RED-015 exists on disk (red_team/red_015/) but is not in red_team_report_index.yaml"
+  total_summaries: 5
+  total_attack_scenarios: 184
+  total_breakthrough: 0
+  boundary_preservation_rate: "100%"
+  all_status: "closed/judge_approved"
+  reports:
+    - id: "RED-001"
+      path: "PATH-SUPPLY-DEV-RAG-RUNTIME-001"
+      modules: "M43→M46→M48→M49→M50"
+      date: "2026-06-26"
+    - id: "RED-002"
+      path: "PATH-RAG-RUNTIME-001"
+      modules: "M48→M49→M50"
+      date: "2026-06-26"
+    - id: "RED-003"
+      path: "PATH-SUPPLY-DEV-RUNTIME-001"
+      modules: "M43→M46→M47→M50"
+      date: "2026-06-28"
+    - id: "RED-004"
+      path: "PATH-SUPPLY-A2A-DEP-RUNTIME-001"
+      modules: "M44→M45→M50"
+      date: "2026-06-26"
+    - id: "RED-005"
+      path: "PATH-DEV-CRED-RUNTIME-001"
+      modules: "M46→M47→M50"
+      date: "2026-06-27"
+    - id: "RED-006"
+      path: "PATH-CRED-RUNTIME-AUDIT-001"
+      modules: "M47→M50"
+      date: "2026-06-27"
+    - id: "RED-007"
+      path: "PATH-SUPPLY-DEV-001"
+      modules: "M43→M46"
+      date: "2026-06-27"
+    - id: "RED-008"
+      path: "PATH-DEV-RAG-RUNTIME-001"
+      modules: "M46→M48→M49→M50"
+      date: "2026-06-27"
+    - id: "RED-009"
+      path: "PATH-SUPPLY-RAG-RUNTIME-001"
+      modules: "M43→M48→M49→M50"
+      date: "2026-06-28"
+    - id: "RED-010"
+      path: "Phase 89B attack surface supplement"
+      date: "2026-07-02"
+    - id: "RED-011"
+      path: "Phase 89B attack surface supplement"
+      date: "2026-07-02"
+    - id: "RED-012"
+      path: "ADV-CHAIN-001 stage_1_reconnaissance"
+      date: "2026-07-03"
+    - id: "RED-013"
+      path: "ADV-CHAIN-001 stage_2_exfiltration"
+      date: "2026-07-03"
+    - id: "RED-014"
+      path: "ADV-CHAIN-001 stage_3_persistence_control"
+      date: "2026-07-03"
+    - id: "RED-015"
+      path: "red_team/red_015/"
+      date: "2026-07-03"
+  summaries:
+    - "red_summary_001"
+    - "red_summary_002"
+    - "red_summary_003"
+    - "red_summary_004"
+    - "red_summary_005 (final simulated red team summary)"
+
+# ============================================================
+# Validate Scripts
+# ============================================================
+
+validate_scripts:
+  total: 100
+  key_validators:
+    - "validate_phase86a_ai_red_team_attack_chain_design.py"
+    - "validate_phase86b_authorized_attack_chain_schema_freeze.py"
+    - "validate_phase87a_ai_security_assessment_dashboard_design.py"
+    - "validate_phase93a_cross_module_attack_path_design.py"
+    - "validate_phase88a_* (mock fixture validators)"
+    - "validate_phase88b_consistency_sweep.py"
+    - "validate_phase88c_gap_remediation.py"
+    - "validate_phase91a_* (module validators)"
+    - "validate_parser_regression_guard.py"
+  all_previously_passed: true
+
+# ============================================================
+# Design Documents
+# ============================================================
+
+design_documents:
+  identity_graph_kernel:
+    path: "design/ai_safety_identity_graph_kernel/"
+    status: "design_complete"
+    architecture: "4-layer: M10 v2 → M05 v2 → M40 → PHASE-93A"
+  attack_chain_engine:
+    path: "docs/phase86a_ai_red_team_attack_chain_engine_design.md"
+    status: "design_complete"
+  automated_explorer:
+    path: "docs/automated_attack_chain_discovery_framework_design.md"
+    status: "design_complete"
+  attack_chain_workflow:
+    path: "docs/automated_attack_chain_workflow_engine_design.md"
+    status: "design_complete"

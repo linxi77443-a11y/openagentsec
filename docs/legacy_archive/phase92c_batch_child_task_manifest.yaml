@@ -1,0 +1,219 @@
+# Phase-92C — M-BATCH-RT-001 Child Task Manifest
+---
+batch_id: M-BATCH-RT-001
+batch_commit: 4b41ee9c
+batch_status: developer_complete
+registered_module: false
+batch_orchestration_only: true
+coverage_credit_granted: false
+child_tasks_reviewed: false
+closed: false
+judge_approved: false
+
+child_tasks:
+  - task_id: "M-BATCH-WS-M19"
+    module_or_path: "M19 Business Data Exposure"
+    module_id: M19
+    assessment_mode: defensive_evaluation
+    prd_reference: "原 PRD §9.8, §6/§7; 攻击者视角 §7/§8; v2.0 §4; v3.1 §4/§6"
+    expected_artifacts:
+      - batch_runtime/m19/module_mvp_corpus.yaml
+      - batch_runtime/m19/run_config.yaml
+      - batch_runtime/m19/execution_results.json
+      - batch_runtime/m19/m19_result.yaml
+      - batch_runtime/m19/capability_scorecard.yaml
+    expected_validators: [scripts/validate_batch_m19.py]
+    coverage_change_claimed: true
+    coverage_change_evidence: "+fake_runtime_ready"
+    safety_level_claimed: simulated_runtime_safety
+    execution_allowed: false
+    developer_status: complete
+    judge_status: pending_review
+    commit: 4b41ee9c
+    modified_files:
+      - batch_runtime/m19/module_mvp_corpus.yaml
+      - batch_runtime/m19/run_config.yaml
+      - batch_runtime/m19/execution_results.json
+      - batch_runtime/m19/m19_result.yaml
+      - batch_runtime/m19/capability_scorecard.yaml
+    execution_results_modified: true
+    original_execution_results_preserved: false
+
+  - task_id: "M-BATCH-WS-M14"
+    module_or_path: "M14 High Risk Action Simulation"
+    module_id: M14
+    assessment_mode: defensive_evaluation
+    prd_reference: "原 PRD §9.6, §6/§7; 攻击者视角 §7/§8; v2.0 §4; v3.1 §4/§6"
+    expected_artifacts:
+      - batch_runtime/m14/module_mvp_corpus.yaml
+      - batch_runtime/m14/run_config.yaml
+      - batch_runtime/m14/execution_results.json
+      - batch_runtime/m14/m14_result.yaml
+      - batch_runtime/m14/capability_scorecard.yaml
+    expected_validators: [scripts/validate_batch_m14.py]
+    coverage_change_claimed: true
+    coverage_change_evidence: "+fake_runtime_ready"
+    safety_level_claimed: simulated_runtime_safety
+    execution_allowed: false
+    developer_status: complete
+    judge_status: pending_review
+    commit: 4b41ee9c
+    modified_files:
+      - batch_runtime/m14/module_mvp_corpus.yaml
+      - batch_runtime/m14/run_config.yaml
+      - batch_runtime/m14/execution_results.json
+      - batch_runtime/m14/m14_result.yaml
+      - batch_runtime/m14/capability_scorecard.yaml
+    execution_results_modified: true
+    original_execution_results_preserved: false
+
+  - task_id: "M-BATCH-WS-M39"
+    module_or_path: "M39 Action Decision Boundary"
+    module_id: M39
+    assessment_mode: defensive_evaluation
+    prd_reference: "原 PRD §9.10, §6/§7; 攻击者视角 §7/§8; v2.0 §4; v3.1 §4/§6"
+    expected_artifacts:
+      - batch_runtime/m39/module_mvp_corpus.yaml
+      - batch_runtime/m39/run_config.yaml
+      - batch_runtime/m39/execution_results.json
+      - batch_runtime/m39/m39_result.yaml
+      - batch_runtime/m39/capability_scorecard.yaml
+    expected_validators: [scripts/validate_batch_m39.py]
+    coverage_change_claimed: true
+    coverage_change_evidence: "+fake_runtime_ready"
+    safety_level_claimed: simulated_runtime_safety
+    execution_allowed: false
+    developer_status: complete
+    judge_status: pending_review
+    commit: 4b41ee9c
+    modified_files:
+      - batch_runtime/m39/module_mvp_corpus.yaml
+      - batch_runtime/m39/run_config.yaml
+      - batch_runtime/m39/execution_results.json
+      - batch_runtime/m39/m39_result.yaml
+      - batch_runtime/m39/capability_scorecard.yaml
+    execution_results_modified: true
+    original_execution_results_preserved: false
+
+  - task_id: "M-BATCH-WS-TOOLTRACE"
+    module_or_path: "Tool Trace → Fake Runtime Integration (shared)"
+    module_id: SHARED
+    assessment_mode: defensive_evaluation
+    prd_reference: "原 PRD §8; 攻击者视角 §7/§8; v2.0 §4; v3.1 §4/§6"
+    expected_artifacts:
+      - batch_runtime/tooltrace_integration/module_mvp_corpus.yaml
+      - batch_runtime/tooltrace_integration/run_config.yaml
+      - batch_runtime/tooltrace_integration/execution_results.json
+      - batch_runtime/tooltrace_integration/tooltrace_runtime_integration_result.yaml
+      - batch_runtime/tooltrace_integration/capability_scorecard.yaml
+    expected_validators: []
+    coverage_change_claimed: false
+    safety_level_claimed: simulated_runtime_safety
+    execution_allowed: false
+    developer_status: complete
+    judge_status: pending_review
+    commit: 4b41ee9c
+    modified_files:
+      - batch_runtime/tooltrace_integration/module_mvp_corpus.yaml
+      - batch_runtime/tooltrace_integration/run_config.yaml
+      - batch_runtime/tooltrace_integration/execution_results.json
+      - batch_runtime/tooltrace_integration/tooltrace_runtime_integration_result.yaml
+      - batch_runtime/tooltrace_integration/capability_scorecard.yaml
+    execution_results_modified: true
+    original_execution_results_preserved: false
+
+  - task_id: "M-BATCH-WS-PARSER"
+    module_or_path: "Parser Regression Guard (shared)"
+    module_id: SHARED
+    assessment_mode: registry_review_cleanup
+    prd_reference: "原 PRD §10/§11.2; v2.0 §13"
+    expected_artifacts:
+      - batch_runtime/parser_guard/parser_regression_result.yaml
+    expected_validators: []
+    coverage_change_claimed: false
+    safety_level_claimed: not_applicable
+    execution_allowed: false
+    developer_status: complete
+    judge_status: pending_review
+    commit: 4b41ee9c
+    modified_files:
+      - batch_runtime/parser_guard/parser_regression_result.yaml
+    execution_results_modified: false
+    original_execution_results_preserved: true
+
+  - task_id: "M-BATCH-WS-KNOWNBAD"
+    module_or_path: "Seeded Known-Bad Evaluator Self-Test (shared)"
+    module_id: SHARED
+    assessment_mode: defensive_evaluation
+    prd_reference: "原 PRD §11.2; 攻击者视角 §7/§8; v2.0 §4"
+    expected_artifacts:
+      - batch_runtime/known_bad/module_mvp_corpus.yaml
+      - batch_runtime/known_bad/run_config.yaml
+      - batch_runtime/known_bad/execution_results.json
+      - batch_runtime/known_bad/evaluator_self_test_result.yaml
+      - batch_runtime/known_bad/capability_scorecard.yaml
+    expected_validators: []
+    coverage_change_claimed: false
+    safety_level_claimed: not_applicable
+    execution_allowed: false
+    developer_status: complete
+    judge_status: pending_review
+    commit: 4b41ee9c
+    modified_files:
+      - batch_runtime/known_bad/module_mvp_corpus.yaml
+      - batch_runtime/known_bad/run_config.yaml
+      - batch_runtime/known_bad/execution_results.json
+      - batch_runtime/known_bad/evaluator_self_test_result.yaml
+      - batch_runtime/known_bad/capability_scorecard.yaml
+    execution_results_modified: true
+    original_execution_results_preserved: false
+
+  - task_id: "M-BATCH-WS-STATREG"
+    module_or_path: "Statistical Regression Baseline (shared)"
+    module_id: SHARED
+    assessment_mode: defensive_evaluation
+    prd_reference: "原 PRD §11.2; v2.0 §13"
+    expected_artifacts:
+      - batch_runtime/statistical_regression/module_mvp_corpus.yaml
+      - batch_runtime/statistical_regression/run_config.yaml
+      - batch_runtime/statistical_regression/execution_results.json
+      - batch_runtime/statistical_regression/statistical_regression_result.yaml
+      - batch_runtime/statistical_regression/capability_scorecard.yaml
+    expected_validators: []
+    coverage_change_claimed: false
+    safety_level_claimed: not_applicable
+    execution_allowed: false
+    developer_status: complete
+    judge_status: pending_review
+    commit: 4b41ee9c
+    modified_files:
+      - batch_runtime/statistical_regression/module_mvp_corpus.yaml
+      - batch_runtime/statistical_regression/run_config.yaml
+      - batch_runtime/statistical_regression/execution_results.json
+      - batch_runtime/statistical_regression/statistical_regression_result.yaml
+      - batch_runtime/statistical_regression/capability_scorecard.yaml
+    execution_results_modified: true
+    original_execution_results_preserved: false
+
+  - task_id: "M-BATCH-WS-SHARED"
+    module_or_path: "Shared Assets (fake_tool_catalog, runtime_adapter, scorecard_schema)"
+    module_id: SHARED
+    assessment_mode: defensive_evaluation
+    prd_reference: "原 PRD §10 核心资产链, §11.1 Matrix Anchor, §11.2 Parser Regression Guard; v3.1 §9 Registry 一致性治理; v2.0 §4 统一安全边界"
+    expected_artifacts:
+      - batch_runtime/shared/fake_tool_catalog.yaml
+      - batch_runtime/shared/runtime_adapter.yaml
+      - batch_runtime/shared/scorecard_schema.yaml
+    expected_validators: []
+    coverage_change_claimed: false
+    safety_level_claimed: not_applicable
+    execution_allowed: false
+    developer_status: complete
+    judge_status: pending_review
+    commit: 4b41ee9c
+    modified_files:
+      - batch_runtime/shared/fake_tool_catalog.yaml
+      - batch_runtime/shared/runtime_adapter.yaml
+      - batch_runtime/shared/scorecard_schema.yaml
+    execution_results_modified: false
+    original_execution_results_preserved: true

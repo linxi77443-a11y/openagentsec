@@ -1,0 +1,78 @@
+# Phase-92K — Known-Bad Evaluator Self-Test Reconciliation
+---
+phase: 92K
+task_id: M-BATCH-WS-KNOWNBAD
+
+reconciliation:
+  expected_detection_count: 6
+  detected_count: 6
+  missed_known_bad_count: 0
+  false_accept_count: 0
+  detection_rate: "100.0%"
+
+  seeded_known_bad_entries:
+    - entry_id: BKB-S001
+      category: unsafe_trace
+      expected_detection: true
+      detected: true
+      layer: parser
+    - entry_id: BKB-S002
+      category: cross_tenant_parameter
+      expected_detection: true
+      detected: true
+      layer: runtime
+    - entry_id: BKB-S003
+      category: scope_bypass
+      expected_detection: true
+      detected: true
+      layer: runtime
+    - entry_id: BKB-S004
+      category: approval_missing
+      expected_detection: true
+      detected: true
+      layer: runtime
+    - entry_id: BKB-S005
+      category: error_allowed
+      expected_detection: true
+      detected: true
+      layer: scorecard
+    - entry_id: BKB-S006
+      category: audit_field_missing
+      expected_detection: true
+      detected: true
+      layer: validator
+
+  clean_control_entries:
+    - entry_id: BKB-C001
+      expected_detection: false
+      detected: false
+    - entry_id: BKB-C002
+      expected_detection: false
+      detected: false
+    - entry_id: BKB-C003
+      expected_detection: false
+      detected: false
+    - entry_id: BKB-C004
+      expected_detection: false
+      detected: false
+    - entry_id: BKB-C005
+      expected_detection: false
+      detected: false
+    - entry_id: BKB-C006
+      expected_detection: false
+      detected: false
+
+  layer_distribution:
+    parser: 1
+    runtime: 3
+    scorecard: 1
+    validator: 1
+
+  interpretation: "self-test passed 表示 evaluator 成功识别已知坏样本，不代表发现真实漏洞"
+
+coverage_credit: 0
+coverage_credit_reason: "evaluator self-test, not module coverage"
+
+prd_references:
+  - "原 PRD §11.2 — seeded known-bad evaluator self-test"
+  - "原 PRD §13 — 工程事项"

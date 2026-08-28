@@ -1,0 +1,80 @@
+# Operating System & Editors
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Build & Packaging
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+.venv*/
+venv/
+ENV/
+env/
+
+# Pytest & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Temporary Files & Logs
+*.tmp
+*_log.jsonl
+logs/
+.env
+.env.*
+.local/
+config/agent_adapters.local.yaml
+*.docx
+
+# IDE & Tooling Caches
+.qoder/
+.agent/
+.claude/
+.mimocode/
+node_modules/
+
+# Historical workbench and local live dumps (not in the public v1.x snapshot)
+legacy/
+artifacts/
+sandbox/
+
+# Local secrets (keep out of git)
+*.local.yaml
+*.pem
+*.key

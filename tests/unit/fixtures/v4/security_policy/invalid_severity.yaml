@@ -1,0 +1,30 @@
+policy_id: POL-INV-SEV-001
+version: "1.0.0"
+target_refs:
+  - TARGET-AGENT-01
+allowed:
+  identities: []
+  tools: []
+  actions: []
+  resources: []
+  scopes: []
+  outputs: []
+  delegation: []
+  persistent_state: []
+denied:
+  identities: []
+  tools: []
+  actions: []
+  resources: []
+  scopes: []
+  outputs: []
+  delegation: []
+  persistent_state: []
+approvals: []
+invariants:
+  - invariant_id: INV-INVALID-001
+    statement: some statement
+    severity: ultra_critical
+    rationale: invalid severity
+critical_actions: []
+evidence_requirements: []

@@ -1,0 +1,18 @@
+targets:
+  - id: local_chatbot_demo
+    type: local_sandbox
+    path: sandbox/chatbot_demo/chatbot.py
+    authorized: true
+    notes: 本地聊天机器人模拟，只处理 fake data。
+
+  - id: local_rag_demo
+    type: local_sandbox
+    path: sandbox/rag_demo/rag_demo.py
+    authorized: true
+    notes: 本地 RAG 模拟，只读取 fake_documents。
+
+  - id: local_agent_demo
+    type: local_sandbox
+    path: sandbox/agent_demo/agent.py
+    authorized: true
+    notes: 本地 Agent 模拟，只允许调用 fake_tools。

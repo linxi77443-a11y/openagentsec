@@ -1,0 +1,58 @@
+# Phase-92C — Commit File Map
+---
+batch_id: M-BATCH-RT-001
+commit: 4b41ee9c
+total_files: 43
+
+file_to_task_mapping:
+  batch_runtime/m19/module_mvp_corpus.yaml: M-BATCH-WS-M19
+  batch_runtime/m19/run_config.yaml: M-BATCH-WS-M19
+  batch_runtime/m19/execution_results.json: M-BATCH-WS-M19
+  batch_runtime/m19/m19_result.yaml: M-BATCH-WS-M19
+  batch_runtime/m19/capability_scorecard.yaml: M-BATCH-WS-M19
+
+  batch_runtime/m14/module_mvp_corpus.yaml: M-BATCH-WS-M14
+  batch_runtime/m14/run_config.yaml: M-BATCH-WS-M14
+  batch_runtime/m14/execution_results.json: M-BATCH-WS-M14
+  batch_runtime/m14/m14_result.yaml: M-BATCH-WS-M14
+  batch_runtime/m14/capability_scorecard.yaml: M-BATCH-WS-M14
+
+  batch_runtime/m39/module_mvp_corpus.yaml: M-BATCH-WS-M39
+  batch_runtime/m39/run_config.yaml: M-BATCH-WS-M39
+  batch_runtime/m39/execution_results.json: M-BATCH-WS-M39
+  batch_runtime/m39/m39_result.yaml: M-BATCH-WS-M39
+  batch_runtime/m39/capability_scorecard.yaml: M-BATCH-WS-M39
+
+  batch_runtime/tooltrace_integration/module_mvp_corpus.yaml: M-BATCH-WS-TOOLTRACE
+  batch_runtime/tooltrace_integration/run_config.yaml: M-BATCH-WS-TOOLTRACE
+  batch_runtime/tooltrace_integration/execution_results.json: M-BATCH-WS-TOOLTRACE
+  batch_runtime/tooltrace_integration/tooltrace_runtime_integration_result.yaml: M-BATCH-WS-TOOLTRACE
+  batch_runtime/tooltrace_integration/capability_scorecard.yaml: M-BATCH-WS-TOOLTRACE
+
+  batch_runtime/parser_guard/parser_regression_result.yaml: M-BATCH-WS-PARSER
+
+  batch_runtime/known_bad/module_mvp_corpus.yaml: M-BATCH-WS-KNOWNBAD
+  batch_runtime/known_bad/run_config.yaml: M-BATCH-WS-KNOWNBAD
+  batch_runtime/known_bad/execution_results.json: M-BATCH-WS-KNOWNBAD
+  batch_runtime/known_bad/evaluator_self_test_result.yaml: M-BATCH-WS-KNOWNBAD
+  batch_runtime/known_bad/capability_scorecard.yaml: M-BATCH-WS-KNOWNBAD
+
+  batch_runtime/statistical_regression/module_mvp_corpus.yaml: M-BATCH-WS-STATREG
+  batch_runtime/statistical_regression/run_config.yaml: M-BATCH-WS-STATREG
+  batch_runtime/statistical_regression/execution_results.json: M-BATCH-WS-STATREG
+  batch_runtime/statistical_regression/statistical_regression_result.yaml: M-BATCH-WS-STATREG
+  batch_runtime/statistical_regression/capability_scorecard.yaml: M-BATCH-WS-STATREG
+
+  batch_runtime/shared/fake_tool_catalog.yaml: M-BATCH-WS-SHARED
+  batch_runtime/shared/runtime_adapter.yaml: M-BATCH-WS-SHARED
+  batch_runtime/shared/scorecard_schema.yaml: M-BATCH-WS-SHARED
+
+  docs/m_batch_rt_001_workstream_manifest.yaml: batch_metadata
+  docs/m_batch_rt_001_shared_asset_ownership.yaml: batch_metadata
+  docs/m_batch_rt_001_schema_compatibility_matrix.yaml: batch_metadata
+  docs/m_batch_rt_001_batch_review.md: batch_metadata
+  results/m_batch_rt_001_batch_result.yaml: batch_metadata
+  scripts/validate_batch_m19.py: M-BATCH-WS-M19
+  scripts/validate_batch_m14.py: M-BATCH-WS-M14
+  scripts/validate_batch_m39.py: M-BATCH-WS-M39
+  scripts/validate_batch_rt001.py: batch_validator

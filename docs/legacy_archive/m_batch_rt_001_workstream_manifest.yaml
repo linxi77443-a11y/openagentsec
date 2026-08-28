@@ -1,0 +1,102 @@
+# M-BATCH-RT-001 Workstream Manifest
+---
+batch_id: M-BATCH-RT-001
+date: 2026-07-18
+assessment_mode: defensive_evaluation
+
+workstreams:
+  - id: WS-M19
+    name: "M19 Business Data Exposure Fake Runtime"
+    module_id: M19
+    type: module_development
+    status: pending
+    corpus: batch_runtime/m19/module_mvp_corpus.yaml
+    run_config: batch_runtime/m19/run_config.yaml
+    execution_results: batch_runtime/m19/execution_results.json
+    result: batch_runtime/m19/m19_result.yaml
+    scorecard: batch_runtime/m19/capability_scorecard.yaml
+    validate: scripts/validate_batch_m19.py
+
+  - id: WS-M14
+    name: "M14 High Risk Action Fake Runtime"
+    module_id: M14
+    type: module_development
+    status: pending
+    corpus: batch_runtime/m14/module_mvp_corpus.yaml
+    run_config: batch_runtime/m14/run_config.yaml
+    execution_results: batch_runtime/m14/execution_results.json
+    result: batch_runtime/m14/m14_result.yaml
+    scorecard: batch_runtime/m14/capability_scorecard.yaml
+    validate: scripts/validate_batch_m14.py
+
+  - id: WS-M39
+    name: "M39 Action Decision Boundary Fake Runtime"
+    module_id: M39
+    type: module_development
+    status: pending
+    corpus: batch_runtime/m39/module_mvp_corpus.yaml
+    run_config: batch_runtime/m39/run_config.yaml
+    execution_results: batch_runtime/m39/execution_results.json
+    result: batch_runtime/m39/m39_result.yaml
+    scorecard: batch_runtime/m39/capability_scorecard.yaml
+    validate: scripts/validate_batch_m39.py
+
+  - id: WS-TOOLTRACE
+    name: "Tool Trace → Fake Runtime Integration"
+    module_id: SHARED
+    type: integration
+    status: pending
+    corpus: batch_runtime/tooltrace_integration/module_mvp_corpus.yaml
+    run_config: batch_runtime/tooltrace_integration/run_config.yaml
+    execution_results: batch_runtime/tooltrace_integration/execution_results.json
+    result: batch_runtime/tooltrace_integration/tooltrace_runtime_integration_result.yaml
+    scorecard: batch_runtime/tooltrace_integration/capability_scorecard.yaml
+    validate: scripts/validate_batch_tooltrace.py
+
+  - id: WS-PARSER
+    name: "Parser Regression Guard Hardening"
+    module_id: SHARED
+    type: infrastructure
+    status: pending
+    result: batch_runtime/parser_guard/parser_regression_result.yaml
+    validate: scripts/validate_batch_parser_guard.py
+
+  - id: WS-KNOWNBAD
+    name: "Seeded Known-Bad Evaluator Self-Test"
+    module_id: SHARED
+    type: evaluation
+    status: pending
+    corpus: batch_runtime/known_bad/module_mvp_corpus.yaml
+    run_config: batch_runtime/known_bad/run_config.yaml
+    execution_results: batch_runtime/known_bad/execution_results.json
+    result: batch_runtime/known_bad/evaluator_self_test_result.yaml
+    scorecard: batch_runtime/known_bad/capability_scorecard.yaml
+    validate: scripts/validate_batch_known_bad.py
+
+  - id: WS-STATREG
+    name: "Statistical Regression Baseline"
+    module_id: SHARED
+    type: evaluation
+    status: pending
+    corpus: batch_runtime/statistical_regression/module_mvp_corpus.yaml
+    run_config: batch_runtime/statistical_regression/run_config.yaml
+    execution_results: batch_runtime/statistical_regression/execution_results.json
+    result: batch_runtime/statistical_regression/statistical_regression_result.yaml
+    scorecard: batch_runtime/statistical_regression/capability_scorecard.yaml
+    validate: scripts/validate_batch_statreg.py
+
+shared_assets:
+  parser: "capability_engine/parser.py (read-only reference)"
+  fake_tool_catalog: "batch_runtime/shared/fake_tool_catalog.yaml"
+  runtime_adapter: "batch_runtime/shared/runtime_adapter.yaml"
+  registry: "capability_modules/module_registry.yaml (集成 Agent 独占合并)"
+  scorecard_schema: "batch_runtime/shared/scorecard_schema.yaml"
+
+safety:
+  confirmed_vulnerability: false
+  formal_finding_allowed: false
+  production_safety_claimed: false
+  controlled_replay_claimed: false
+  attack_execution_allowed: false
+  payload_generation_allowed: false
+  synthetic_only: true

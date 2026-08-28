@@ -1,0 +1,34 @@
+policy_id: POL-DUP-INV-001
+version: "1.0.0"
+target_refs:
+  - TARGET-AGENT-01
+allowed:
+  identities: []
+  tools: []
+  actions: []
+  resources: []
+  scopes: []
+  outputs: []
+  delegation: []
+  persistent_state: []
+denied:
+  identities: []
+  tools: []
+  actions: []
+  resources: []
+  scopes: []
+  outputs: []
+  delegation: []
+  persistent_state: []
+approvals: []
+invariants:
+  - invariant_id: INV-DUP-001
+    statement: statement one
+    severity: high
+    rationale: rationale one
+  - invariant_id: INV-DUP-001
+    statement: statement two
+    severity: medium
+    rationale: rationale two
+critical_actions: []
+evidence_requirements: []

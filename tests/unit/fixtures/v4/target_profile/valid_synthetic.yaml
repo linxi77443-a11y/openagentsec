@@ -1,0 +1,35 @@
+target_id: TARGET-SYNTHETIC-FINANCE-01
+target_type: synthetic_agent_v2
+target_version: "2.1.0"
+environment: synthetic
+identities:
+  - user:alice
+  - role:finance_reader
+tenants:
+  - tenant_alpha
+roles:
+  - finance_reader
+tools:
+  - query_balance
+  - generate_report
+resources:
+  - db:finance_readonly
+rag_sources:
+  - vector_store:kb_internal
+memory_stores:
+  - session_memory:redis
+approval_points:
+  - point:export_approval
+connectors:
+  - connector:internal_crm
+runtime_capabilities:
+  - capability:llm_tool_call
+  - capability:subagent_delegation
+output_channels:
+  - channel:dashboard_ui
+observability:
+  model_response: observable
+  tool_trace: observable
+  runtime_state: observable
+  memory_state: unobservable
+  audit_event: partially_observable

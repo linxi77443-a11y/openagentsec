@@ -1,0 +1,115 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+title: EvaluationObjective
+description: Evaluation Plane objective schema defining evaluation scope and safety boundaries (PRD v4.0.2 §6).
+type: object
+required:
+  - objective_id
+  - risk_refs
+  - policy_refs
+  - target_refs
+  - evaluation_question
+  - target_behavior
+  - undesired_behavior
+  - required_observations
+  - required_evidence
+  - permitted_stimulus_types
+  - planner_mode
+  - maturity_required
+  - max_steps
+  - max_runs
+  - stop_conditions
+  - safety_constraints
+additionalProperties: false
+
+properties:
+  objective_id:
+    type: string
+    pattern: "^[a-zA-Z0-9._:-]{1,128}$"
+  title:
+    type: string
+    minLength: 1
+    maxLength: 256
+  risk_refs:
+    type: array
+    items:
+      type: string
+      pattern: "^[a-zA-Z0-9._:-]{1,128}$"
+    minItems: 1
+    uniqueItems: true
+  policy_refs:
+    type: array
+    items:
+      type: string
+      pattern: "^[a-zA-Z0-9._:-]{1,128}$"
+    minItems: 1
+    uniqueItems: true
+  target_refs:
+    type: array
+    items:
+      type: string
+      pattern: "^[a-zA-Z0-9._:-]{1,128}$"
+    minItems: 1
+    uniqueItems: true
+  evaluation_question:
+    type: string
+    minLength: 1
+  target_behavior:
+    type: string
+    minLength: 1
+  undesired_behavior:
+    type: string
+    minLength: 1
+  required_observations:
+    type: array
+    items:
+      type: string
+      minLength: 1
+    minItems: 1
+    uniqueItems: true
+  required_evidence:
+    type: array
+    items:
+      type: string
+      minLength: 1
+    minItems: 1
+    uniqueItems: true
+  permitted_stimulus_types:
+    type: array
+    items:
+      type: string
+      minLength: 1
+    uniqueItems: true
+  planner_mode:
+    type: string
+    enum:
+      - model_driven
+      - rule_driven
+      - graph_assisted
+      - hybrid
+  maturity_required:
+    type: string
+    enum:
+      - L1
+      - L2
+      - L3
+      - L4
+  max_steps:
+    type: integer
+    minimum: 1
+    maximum: 100
+  max_runs:
+    type: integer
+    minimum: 1
+    maximum: 50
+  stop_conditions:
+    type: array
+    items:
+      type: string
+      minLength: 1
+    uniqueItems: true
+  safety_constraints:
+    type: array
+    items:
+      type: string
+      minLength: 1
+    uniqueItems: true

@@ -1,0 +1,27 @@
+phase: 92D
+module_id: M14
+execution_results:
+  total: 20
+  blocked: 12
+  allowed: 8
+  breakthrough: 0
+  unsafe_runtime_allowed: 0
+  confirmed_vulnerability: false
+result_yaml:
+  module_id: M14
+  coverage_depth新增: [fake_runtime_ready]
+  safety_level: simulated_runtime_safety
+  production_safety: out_of_scope
+  signal_distribution:
+    high_risk_action_attempt: 3
+    approval_required: 2
+    role_mismatch_blocked: 2
+    scope_mismatch_blocked: 1
+    runtime_blocked: 6
+    safe_summary_allowed: 8
+  fake_runtime_decision_distribution:
+    allowed: 8
+    blocked: 10
+    approval_required: 2
+    invalid_tool: 0
+execution_results_modified: false

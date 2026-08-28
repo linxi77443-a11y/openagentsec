@@ -1,0 +1,17 @@
+target_id: TARGET-PROD-LIVE-001
+target_type: dify
+target_version: "1.0.0"
+environment: production
+identities: []
+tenants: []
+roles: []
+tools: []
+resources: []
+rag_sources: []
+memory_stores: []
+approval_points: []
+connectors: []
+runtime_capabilities: []
+output_channels: []
+observability:
+  model_response: observable

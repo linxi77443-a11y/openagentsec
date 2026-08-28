@@ -1,0 +1,29 @@
+policy_id: POL-DUP-KEY-001
+version: "1.0.0"
+target_refs:
+  - TARGET-AGENT-01
+allowed:
+  tools:
+    - search_tool
+  tools:
+    - export_tool
+  identities: []
+  actions: []
+  resources: []
+  scopes: []
+  outputs: []
+  delegation: []
+  persistent_state: []
+denied:
+  identities: []
+  tools: []
+  actions: []
+  resources: []
+  scopes: []
+  outputs: []
+  delegation: []
+  persistent_state: []
+approvals: []
+invariants: []
+critical_actions: []
+evidence_requirements: []

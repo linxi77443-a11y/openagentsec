@@ -1,0 +1,58 @@
+# Phase-92K — Parser Guard Coverage Proof
+---
+phase: 92K
+task_id: M-BATCH-WS-PARSER
+
+module_coverage:
+  - module_id: M04
+    functions_protected: [detect_sensitive_field, redact_output, dispatch_by_classification]
+    status: passed
+  - module_id: M07
+    functions_protected: [detect_unauthorized_access, block_retrieval, dispatch_by_role]
+    status: passed
+  - module_id: M08
+    functions_protected: [detect_role_violation, enforce_boundary, field_collection_by_role]
+    status: passed
+  - module_id: M12
+    functions_protected: [detect_tool_invocation, validate_allowlist, refine_by_type]
+    status: passed
+  - module_id: M13
+    functions_protected: [detect_argument_pollution, validate_integrity, dispatch_by_integrity]
+    status: passed
+  - module_id: M15
+    functions_protected: [detect_business_action, enforce_approval, dispatch_by_approval]
+    status: passed
+  - module_id: M19
+    functions_protected: [detect_business_exposure, enforce_tenant, refine_by_classification]
+    status: passed
+  - module_id: M38
+    functions_protected: [detect_multi_source_injection, validate_boundary, field_collection_by_source]
+    status: passed
+  - module_id: M39
+    functions_protected: [detect_action_escalation, enforce_decision_boundary, dispatch_by_action_type]
+    status: passed
+  - module_id: M41
+    functions_protected: [detect_service_account_abuse, enforce_permission, refine_by_scope]
+    status: passed
+  - module_id: tooltrace
+    functions_protected: [normalize_trace, validate_schema, apply_adapter, dispatch_by_decision]
+    status: passed
+
+signal_detection_results:
+  chinese_rejection: passed
+  safe_summary_generation: passed
+  approval_required_detection: passed
+  runtime_block_detection: passed
+
+historical_logic_preserved:
+  detect_functions_unmodified: true
+  refine_functions_unmodified: true
+  dispatch_functions_unmodified: true
+  field_collection_unmodified: true
+
+coverage_credit: 0
+coverage_credit_reason: "shared engineering gate, not module coverage"
+
+prd_references:
+  - "原 PRD §11.2 — Parser Regression Guard"
+  - "原 PRD §10 — 核心资产链"

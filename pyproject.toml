@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openagentsec"
+version = "1.0.0"
+description = "Research framework for evidence-based and reproducible security evaluation of tool-using AI agents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+dependencies = [
+    "pyyaml>=5.4",
+    "jsonschema>=4.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/linxi77443-a11y/openagentsec"
+Documentation = "https://github.com/linxi77443-a11y/openagentsec/tree/main/docs/research"
+Issues = "https://github.com/linxi77443-a11y/openagentsec/issues"
+
+[project.scripts]
+openagentsec = "src.openagentsec.cli:main"
+openagentsec-eval = "src.openagentsec.cli:eval_main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+    "mcp>=2,<3",
+    "openai>=2,<3",
+    "langgraph>=0.2",
+    "langchain-core>=0.3",
+]
+
+[tool.setuptools.package-data]
+openagentsec = [
+    "schemas/v4/*.schema.yaml"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit", "tests/integration"]
+pythonpath = ["."]

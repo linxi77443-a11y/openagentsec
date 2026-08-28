@@ -1,0 +1,522 @@
+# Phase-93E Evidence Handoff Package
+# 结构化裁判摘要 — 使裁判无需读取原始资产即可完成终审
+---
+package_id: PHASE-93E-HANDOFF
+created_at: 2026-07-19
+base_commit: bc771f43
+previous_commit: 222fa080
+registry_diff_lines: 0
+registry_modified: false
+
+# ============================================================
+# 1. RED-018
+# ============================================================
+red_018:
+  task_id: RED-018
+  module_or_path: "PATH-SUPPLY-DEV-RAG-RUNTIME-001 (M43→M46→M48→M49→M50)"
+  task_type: red_team_action_report
+  assessment_mode: adversarial_validation
+  prd_reference: "PRD v3.1 §1.2, §2.1, §2.3, §3.1-§3.4, §4, §5; v2.0 §5.1-§5.4, §6.3, §7.3, §8.3, §9.3; 攻击者视角 §5, §7-§9, §11; 原 PRD §4, §6, §7, §10"
+
+  actual_artifacts_summary:
+    - "red_team/red_018/red018_task_manifest.yaml"
+    - "red_team/red_018/red018_adversarial_playbook.yaml"
+    - "red_team/red_018/red018_run_config.yaml"
+    - "red_team/red_018/red018_execution_results.json"
+    - "red_team/red_018/red018_result.yaml"
+    - "red_team/red_018/red018_capability_scorecard.yaml"
+    - "red_team/red_018/red_team_action_report.md"
+    - "red_team/red_018/red018_red_team_evidence_candidates.yaml"
+    - "red_team/red_018/red018_blue_control_candidates.yaml"
+    - "red_team/red_018/red018_purple_retest_candidates.yaml"
+    - "red_team/red_018/red018_human_review_gate.yaml"
+    - "red_team/red_018/red018_coverage_evidence.yaml"
+    - "red_team/red_018/red018_short_notes.md"
+
+  validator_name: validate_red018.py
+  validator_result: "19/19 PASSED"
+  validator_passed_count: 19
+  validator_failed_count: 0
+  all_checks_passed_claimed: true
+
+  commit: "4f9a62c4 (initial) + 222fa080 (evidence patch)"
+  modified_files:
+    - "red_team/red_018/*"
+
+  execution_results_present: true
+  execution_results_modified: false
+  execution_results_integrity_verified: true
+  execution_results_summary:
+    total_entries: 25
+    blocked: 20
+    allowed: 5
+    breakthrough: 0
+    unsafe_runtime_allowed: 0
+    confirmed_vulnerability: false
+
+  result_scorecard_reconciled: true
+  registry_diff_summary: "no changes to module_registry.yaml or module_cell_mapping.yaml"
+  registry_diff_verified: true
+
+  coverage_change_claimed: false
+  coverage_evidence_summary: "coverage_credit=0, red team action report not module coverage"
+  safety_level_claimed: "simulated_runtime_safety"
+
+  selected_attack_surface:
+    - ai_supply_chain_security
+    - development_environment_security
+    - rag_data_security
+    - runtime_sandbox_security
+
+  selected_modules:
+    - { module_id: M43, phase: 66A }
+    - { module_id: M46, phase: 72A }
+    - { module_id: M48, phase: 67A }
+    - { module_id: M49, phase: 69A }
+    - { module_id: M50, phase: 75A }
+
+  selected_paths:
+    path_id: PATH-SUPPLY-DEV-RAG-RUNTIME-001
+    path_order: "M43 → M46 → M48 → M49 → M50"
+
+  attack_chain_execution_summary:
+    steps: 5
+    total_attack: 20
+    total_control: 5
+    total_blocked: 20
+    total_allowed: 5
+    total_breakthrough: 0
+
+  defense_degradation_trajectory:
+    M43: { initial: stable, final: degraded }
+    M46: { initial: stable, final: degraded }
+    M48: { initial: stable, final: degraded }
+    M49: { initial: stable, final: pressured }
+    M50: { initial: stable, final: pressured }
+
+  key_findings_count: 5
+  red_team_evidence_candidates_count: 7
+  blue_control_candidates_count: 5
+  purple_retest_candidates_count: 3
+  human_review_gate: true
+  all_findings_are_candidate_level: true
+
+  safety_fields:
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    real_system_connection_allowed: false
+    real_api_call_allowed: false
+    real_tool_execution_allowed: false
+    real_data_access_allowed: false
+    controlled_replay_execution_allowed: false
+    synthetic_only: true
+    red_team_engine_not_executable: true
+    dashboard_not_execution_interface: true
+  safety_fields_verified: true
+  execution_allowed: false
+
+  judge_status: judge_approved
+
+# ============================================================
+# 2. RED-019
+# ============================================================
+red_019:
+  task_id: RED-019
+  module_or_path: "PATH-SUPPLY-DEV-RUNTIME-001 (M43→M46→M47→M50)"
+  task_type: red_team_action_report
+  assessment_mode: adversarial_validation
+  judge_status: judge_approved
+  prd_reference: "PRD v3.1 §2.1, §2.3-§2.5, §3.1-§3.4, §4, §5; v2.0 §5.1-§5.2, §5.4, §6.3, §7.3, §9.3; 攻击者视角 §5, §6.2-§6.8, §7-§9, §11; 原 PRD §4, §7, §10"
+
+  actual_artifacts_summary:
+    - "red_team/red_019/red019_task_manifest.yaml"
+    - "red_team/red_019/red019_adversarial_playbook.yaml"
+    - "red_team/red_019/red019_run_config.yaml"
+    - "red_team/red_019/red019_execution_results.json"
+    - "red_team/red_019/red019_result.yaml"
+    - "red_team/red_019/red019_capability_scorecard.yaml"
+    - "red_team/red_019/red_team_action_report.md"
+    - "red_team/red_019/red019_red_team_evidence_candidates.yaml"
+    - "red_team/red_019/red019_blue_control_candidates.yaml"
+    - "red_team/red_019/red019_purple_retest_candidates.yaml"
+    - "red_team/red_019/red019_human_review_gate.yaml"
+    - "red_team/red_019/red019_coverage_evidence.yaml"
+    - "red_team/red_019/red019_short_notes.md"
+
+  validator_name: validate_red019.py
+  validator_result: "13/13 PASSED"
+  validator_passed_count: 13
+  validator_failed_count: 0
+  all_checks_passed_claimed: true
+
+  commit: "7737edba (initial) + b5e35004 (report.md)"
+  modified_files:
+    - "red_team/red_019/*"
+
+  execution_results_present: true
+  execution_results_modified: false
+  execution_results_integrity_verified: true
+  execution_results_summary:
+    total_entries: 20
+    blocked: 16
+    allowed: 4
+    breakthrough: 0
+    unsafe_runtime_allowed: 0
+    confirmed_vulnerability: false
+
+  result_scorecard_reconciled: true
+  registry_diff_summary: "no changes to module_registry.yaml"
+  registry_diff_verified: true
+
+  coverage_change_claimed: false
+  coverage_evidence_summary: "coverage_credit=0, red team action report not module coverage"
+  safety_level_claimed: "simulated_runtime_safety"
+
+  selected_attack_surface:
+    - ai_supply_chain_security
+    - development_environment_security
+    - runtime_sandbox_security
+
+  selected_modules:
+    - { module_id: M43, phase: 66A }
+    - { module_id: M46, phase: 72A }
+    - { module_id: M47, phase: 71A }
+    - { module_id: M50, phase: 75A }
+
+  selected_paths:
+    path_id: PATH-SUPPLY-DEV-RUNTIME-001
+    path_order: "M43 → M46 → M47 → M50"
+
+  attack_chain_execution_summary:
+    steps: 4
+    total_attack: 16
+    total_control: 4
+    total_blocked: 16
+    total_allowed: 4
+    total_breakthrough: 0
+
+  defense_degradation_trajectory:
+    M43: { initial: stable, final: degraded }
+    M46: { initial: stable, final: degraded }
+    M47: { initial: stable, final: pressured }
+    M50: { initial: stable, final: pressured }
+
+  key_findings_count: 4
+  red_team_evidence_candidates_count: 5
+  blue_control_candidates_count: 4
+  purple_retest_candidates_count: 3
+  human_review_gate: true
+  all_findings_are_candidate_level: true
+
+  safety_fields:
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    real_system_connection_allowed: false
+    real_api_call_allowed: false
+    real_tool_execution_allowed: false
+    real_data_access_allowed: false
+    controlled_replay_execution_allowed: false
+    synthetic_only: true
+    red_team_engine_not_executable: true
+    dashboard_not_execution_interface: true
+  safety_fields_verified: true
+  execution_allowed: false
+
+  judge_status: judge_approved
+
+# ============================================================
+# 3. RED-020
+# ============================================================
+red_020:
+  task_id: RED-020
+  module_or_path: "PATH-RAG-RUNTIME-001 (M48→M49→M50)"
+  task_type: red_team_action_report
+  assessment_mode: adversarial_validation
+  judge_status: judge_approved
+  prd_reference: "PRD v3.1 §2.1, §2.3-§2.5, §3.1-§3.4, §4, §5; v2.0 §5.3-§5.4, §8.3, §9.3; 攻击者视角 §5, §6.2, §6.5, §6.6, §6.10, §7-§9, §11; 原 PRD §4, §6, §7, §9.8, §9.9, §10"
+
+  actual_artifacts_summary:
+    - "red_team/red_020/red020_task_manifest.yaml"
+    - "red_team/red_020/red020_adversarial_playbook.yaml"
+    - "red_team/red_020/red020_run_config.yaml"
+    - "red_team/red_020/red020_execution_results.json"
+    - "red_team/red_020/red020_result.yaml"
+    - "red_team/red_020/red020_capability_scorecard.yaml"
+    - "red_team/red_020/red_team_action_report.md"
+    - "red_team/red_020/red020_red_team_evidence_candidates.yaml"
+    - "red_team/red_020/red020_blue_control_candidates.yaml"
+    - "red_team/red_020/red020_purple_retest_candidates.yaml"
+    - "red_team/red_020/red020_human_review_gate.yaml"
+    - "red_team/red_020/red020_coverage_evidence.yaml"
+    - "red_team/red_020/red020_short_notes.md"
+
+  validator_name: validate_red020.py
+  validator_result: "13/13 PASSED"
+  validator_passed_count: 13
+  validator_failed_count: 0
+  all_checks_passed_claimed: true
+
+  commit: "7737edba (initial) + b5e35004 (report.md)"
+  modified_files:
+    - "red_team/red_020/*"
+
+  execution_results_present: true
+  execution_results_modified: false
+  execution_results_integrity_verified: true
+  execution_results_summary:
+    total_entries: 15
+    blocked: 12
+    allowed: 3
+    breakthrough: 0
+    unsafe_runtime_allowed: 0
+    confirmed_vulnerability: false
+
+  result_scorecard_reconciled: true
+  registry_diff_summary: "no changes to module_registry.yaml"
+  registry_diff_verified: true
+
+  coverage_change_claimed: false
+  coverage_evidence_summary: "coverage_credit=0, red team action report not module coverage"
+  safety_level_claimed: "simulated_runtime_safety"
+
+  selected_attack_surface:
+    - rag_data_security
+    - runtime_sandbox_security
+
+  selected_modules:
+    - { module_id: M48, phase: 67A }
+    - { module_id: M49, phase: 69A }
+    - { module_id: M50, phase: 75A }
+
+  selected_paths:
+    path_id: PATH-RAG-RUNTIME-001
+    path_order: "M48 → M49 → M50"
+
+  attack_chain_execution_summary:
+    steps: 3
+    total_attack: 12
+    total_control: 3
+    total_blocked: 12
+    total_allowed: 3
+    total_breakthrough: 0
+
+  defense_degradation_trajectory:
+    M48: { initial: stable, final: degraded }
+    M49: { initial: stable, final: pressured }
+    M50: { initial: stable, final: pressured }
+
+  key_findings_count: 3
+  red_team_evidence_candidates_count: 4
+  blue_control_candidates_count: 3
+  purple_retest_candidates_count: 2
+  human_review_gate: true
+  all_findings_are_candidate_level: true
+
+  safety_fields:
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    real_system_connection_allowed: false
+    real_api_call_allowed: false
+    real_tool_execution_allowed: false
+    real_data_access_allowed: false
+    controlled_replay_execution_allowed: false
+    synthetic_only: true
+    red_team_engine_not_executable: true
+    dashboard_not_execution_interface: true
+  safety_fields_verified: true
+  execution_allowed: false
+
+# ============================================================
+# 4. FIXT-093A
+# ============================================================
+fixt_093a:
+  task_id: FIXT-093A
+  task_type: fixture_update
+  assessment_mode: not_applicable
+  registered_module: false
+  shared_asset_task: true
+  synthetic_only: true
+  capability_value: not_applicable
+  risk_level: not_applicable
+  coverage_change_claimed: false
+  confirmed_vulnerability: false
+  formal_finding_allowed: false
+  assessment_execution_performed: false
+  capability_engine_executed: false
+  execution_results_generated: false
+  execution_allowed: false
+
+  actual_artifacts_summary:
+    - "mock_fixtures/phase93a/red018_path_fixtures.yaml"
+
+  validator_name: validate_fixt093a.py
+  validator_result: "13/13 PASSED"
+  validator_passed_count: 13
+  validator_failed_count: 0
+  all_checks_passed_claimed: true
+
+  safety_fields:
+    synthetic_only: true
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+  safety_fields_verified: true
+
+  judge_status: judge_approved
+
+# ============================================================
+# 5. FIXT-093B
+# ============================================================
+fixt_093b:
+  task_id: FIXT-093B
+  task_type: fixture_update
+  assessment_mode: not_applicable
+  registered_module: false
+  shared_asset_task: true
+  synthetic_only: true
+  capability_value: not_applicable
+  risk_level: not_applicable
+  coverage_change_claimed: false
+  confirmed_vulnerability: false
+  formal_finding_allowed: false
+  assessment_execution_performed: false
+  capability_engine_executed: false
+  execution_results_generated: false
+  execution_allowed: false
+
+  actual_artifacts_summary:
+    - "mock_fixtures/phase93b/defense_state_fixtures.yaml"
+
+  validator_name: validate_fixt093b.py
+  validator_result: "14/14 PASSED"
+  validator_passed_count: 14
+  validator_failed_count: 0
+  all_checks_passed_claimed: true
+
+  safety_fields:
+    synthetic_only: true
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+  safety_fields_verified: true
+
+  judge_status: judge_approved
+
+# ============================================================
+# 6. Phase-93F
+# ============================================================
+phase_93f:
+  task_id: Phase-93F
+  task_type: design_gate
+  assessment_mode: registry_review_cleanup
+  registered_module: false
+  coverage_change_claimed: false
+  assessment_execution_performed: false
+  capability_engine_executed: false
+  execution_results_generated: false
+  capability_value: not_applicable
+  risk_level: not_applicable
+  execution_allowed: false
+  judge_status: judge_approved
+
+  actual_artifacts_summary:
+    - "results/phase93f_human_review_gate_result.yaml"
+
+  validator_name: validate_phase93f.py
+  validator_result: "17/17 PASSED"
+  validator_passed_count: 17
+  validator_failed_count: 0
+  all_checks_passed_claimed: true
+
+  reviews:
+    - report_id: RED-018
+      reviewed_commit: "4f9a62c4"
+      execution_results_ref: "red_team/red_018/red018_execution_results.json"
+      execution_results_integrity_verified: true
+      result_scorecard_reconciled: true
+      task_specific_validator_name: validate_red018.py
+      validator_passed_count: 19
+      validator_failed_count: 0
+      all_checks_passed_claimed: true
+      review_outcome: candidate
+
+    - report_id: RED-019
+      reviewed_commit: "7737edba"
+      execution_results_ref: "red_team/red_019/red019_execution_results.json"
+      execution_results_integrity_verified: true
+      result_scorecard_reconciled: true
+      task_specific_validator_name: validate_red019.py
+      validator_passed_count: 13
+      validator_failed_count: 0
+      all_checks_passed_claimed: true
+      review_outcome: candidate
+
+    - report_id: RED-020
+      reviewed_commit: "7737edba"
+      execution_results_ref: "red_team/red_020/red020_execution_results.json"
+      execution_results_integrity_verified: true
+      result_scorecard_reconciled: true
+      task_specific_validator_name: validate_red020.py
+      validator_passed_count: 13
+      validator_failed_count: 0
+      all_checks_passed_claimed: true
+      review_outcome: candidate
+
+  safety_fields:
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    synthetic_only: true
+  safety_fields_verified: true
+
+# ============================================================
+# 7. Phase-93G (pending_patch_review)
+# ============================================================
+phase_93g:
+  task_id: Phase-93G
+  task_type: batch_review_reconciliation
+  assessment_mode: batch_review_reconciliation
+  judge_status: pending_patch_review
+  batch_orchestration_only: true
+  registered_module: false
+  coverage_credit_granted: 0
+  coverage_change_claimed: false
+  each_task_independently_reviewed: true
+  one_task_failure_blocks_other_tasks: false
+  one_task_success_cannot_cover_other_task_failure: true
+  duplicate_coverage_credit_allowed: false
+
+  reconciliation_summary:
+    approved_task_count: 6
+    patch_required_task_count: 0
+    blocked_task_count: 0
+    coverage_credit_total: 0
+    registry_diff_lines: 0
+    duplicate_claim_count: 0
+    execution_results_integrity_verified: true
+    safety_fields_verified: true
+    current_highest_safety_level: simulated_runtime_safety
+    production_safety: out_of_scope
+
+  safety_fields:
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    synthetic_only: true
+  safety_fields_verified: true

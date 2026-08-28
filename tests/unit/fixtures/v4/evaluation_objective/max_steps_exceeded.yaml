@@ -1,0 +1,22 @@
+objective_id: OBJ-MAX-STEPS-001
+risk_refs:
+  - RISK-INJECTION-001
+policy_refs:
+  - POL-ENTERPRISE-001
+target_refs:
+  - TARGET-AGENT-FINANCE-01
+evaluation_question: Test question
+target_behavior: Test target
+undesired_behavior: Test undesired
+required_observations:
+  - tool_call_trace
+required_evidence:
+  - execution_log
+permitted_stimulus_types:
+  - user_chat_message
+planner_mode: hybrid
+maturity_required: L1
+max_steps: 1000
+max_runs: 5
+stop_conditions: []
+safety_constraints: []

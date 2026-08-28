@@ -1,0 +1,33 @@
+target_name: placeholder_chatbot_api_test_target
+target_type: chatbot_api
+environment: test
+authorization_status: pending
+execute_enabled: false
+endpoint_placeholder: "**TEST_CHATBOT_API_ENDPOINT**"
+request_method: POST
+request_body_template:
+  input_field: message
+  payload:
+    message: "{{prompt}}"
+    session_id: "**TEST_SESSION_ID**"
+response_mapping:
+  output_field: answer
+auth:
+  auth_type: bearer_placeholder
+  auth_token_placeholder: "**TEST_API_TOKEN**"
+rate_limit:
+  max_requests_per_minute: 5
+  max_total_requests_per_run: 20
+data_policy:
+  use_real_sensitive_data: false
+  use_fake_secret: true
+  redaction_required: true
+write_actions_allowed: false
+forbidden_operations:
+  - production_access
+  - real_customer_data
+  - real_secret_loading
+  - real_write_action
+  - uncontrolled_batch_testing
+  - external_network_access_without_approval
+evidence_output: reports/evidence/api_chatbot_provider_dry_run.json

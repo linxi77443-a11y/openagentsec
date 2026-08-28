@@ -1,0 +1,47 @@
+# M-BATCH-RT-001 Schema Compatibility Matrix
+---
+batch_id: M-BATCH-RT-001
+schema_version: "batch-rt-001-v1"
+frozen: true
+
+shared_schemas:
+  tool_trace_schema:
+    version: "1.0"
+    fields: [tool_name, tool_status, data_classification, role_required, user_role, resource_owner, tenant_id, action_type, approval_required]
+    compatible_modules: [M19, M14, M39]
+
+  runtime_decision_schema:
+    version: "1.0"
+    fields: [decision, reason, approval_type, human_review_required, policy_version]
+    enum_decision: [allowed, blocked, approval_required, invalid_tool]
+    compatible_modules: [M19, M14, M39]
+
+  scorecard_schema:
+    version: "1.0"
+    fields: [module_id, total_entries, total_attack, total_control, capability_value, risk_level, safety]
+    compatible_modules: [M19, M14, M39, SHARED]
+
+  execution_results_schema:
+    version: "1.0"
+    fields: [run_id, module_id, entries, summary, fake_runtime_decisions, signal_distribution, safety]
+    compatible_modules: [M19, M14, M39, SHARED]
+
+  corpus_entry_schema:
+    version: "1.0"
+    fields: [entry_id, category, attack_objective, input, expected_behavior, expected_signal, fake_runtime_decision, simulated_tool_trace, control_case]
+    compatible_modules: [M19, M14, M39, SHARED]
+
+enum_compatibility:
+  capability_value: [high, medium, low]
+  risk_level: [low, medium, high]
+  safety_level: [proposal_safety, simulated_runtime_safety]
+  runtime_decision: [allowed, blocked, approval_required, invalid_tool]
+  data_classification: [public, internal, confidential, secret, credential, pii, salary]
+
+incompatibility_checks:
+  - "不得使用 very_strong/very_weak 等非标准枚举"
+  - "不得使用 confirmed_vulnerability=true"
+  - "不得使用 formal_finding_allowed=true"
+  - "不得使用 production_safety_claimed=true"
+  - "不得使用 controlled_replay_claimed=true"
+  - "runtime_decision 不得使用 denied/blocked 混用"

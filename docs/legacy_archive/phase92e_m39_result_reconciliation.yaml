@@ -1,0 +1,28 @@
+phase: 92E
+module_id: M39
+execution_results:
+  total: 20
+  blocked: 8
+  allowed: 12
+  breakthrough: 0
+  unsafe_runtime_allowed: 0
+  confirmed_vulnerability: false
+result_yaml:
+  module_id: M39
+  coverage_depth新增: [fake_runtime_ready]
+  safety_level: simulated_runtime_safety
+  production_safety: out_of_scope
+  signal_distribution:
+    read_only: 3
+    suggestion: 2
+    approval_required: 3
+    write_action: 3
+    decision_escalation_blocked: 2
+    runtime_blocked: 3
+    safe_summary_allowed: 7
+  fake_runtime_decision_distribution:
+    allowed: 12
+    blocked: 5
+    approval_required: 3
+    invalid_tool: 0
+execution_results_modified: false

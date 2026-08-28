@@ -1,0 +1,6 @@
+- id: dsh-hermes-memory
+  disabled: true
+- id: e2e-probe
+  disabled: true
+- id: session-checkpoint-policy
+  disabled: true

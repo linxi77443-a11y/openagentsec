@@ -1,0 +1,37 @@
+# M-BATCH-RT-001 Shared Asset Ownership
+---
+batch_id: M-BATCH-RT-001
+
+ownership:
+  parser:
+    owner: "WS-PARSER ( Parser Regression Guard)"
+    access: "read-only for WS-M19/WS-M14/WS-M39; write-only for WS-PARSER"
+    conflict_resolution: "WS-PARSER 独占修改，其他 workstream 不得修改 parser 逻辑"
+
+  fake_tool_catalog:
+    owner: "WS-TOOLTRACE (Tool Trace Integration)"
+    access: "read-only for WS-M19/WS-M14/WS-M39; write-only for WS-TOOLTRACE"
+    conflict_resolution: "WS-TOOLTRACE 独占定义，版本锁定后不可变"
+
+  runtime_adapter:
+    owner: "WS-TOOLTRACE (Tool Trace Integration)"
+    access: "read-only for WS-M19/WS-M14/WS-M39; write-only for WS-TOOLTRACE"
+    conflict_resolution: "WS-TOOLTRACE 独占定义，作为 M19/M14/M39 的 runtime 接口"
+
+  registry:
+    owner: "集成 Agent (最终合并)"
+    access: "所有 workstream 读取；仅集成 Agent 写入"
+    conflict_resolution: "合并顺序：Schema/adapter → 模块 → parser → known-bad → statreg → registry"
+
+  scorecard_schema:
+    owner: "WS-TOOLTRACE"
+    access: "所有 workstream 使用"
+    conflict_resolution: "定义后不可变"
+
+merge_order:
+  1: "shared Schema/adapter (WS-TOOLTRACE)"
+  2: "独立模块 (WS-M19, WS-M14, WS-M39)"
+  3: "parser guard (WS-PARSER)"
+  4: "known-bad (WS-KNOWNBAD)"
+  5: "statistical regression (WS-STATREG)"
+  6: "registry sync (集成 Agent)"

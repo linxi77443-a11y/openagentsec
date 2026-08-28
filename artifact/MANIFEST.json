@@ -1,0 +1,26 @@
+{
+  "name": "OpenAgentSec",
+  "version": "1.0.0",
+  "benchmark": "Agent-Security-Benchmark",
+  "targets": 9,
+  "scenarios": 15,
+  "metrics": 29,
+  "adaptive_mutations": 60,
+  "tests": 199,
+  "reproducibility": "5-run-zero-variance",
+  "license": "Apache-2.0",
+  "artifacts": [
+    "benchmark/benchmark_v1.0.0.json",
+    "benchmark/scenarios.json",
+    "benchmark/metrics.json",
+    "benchmark/targets.json",
+    "benchmark/adaptive_scenarios.json",
+    "benchmark/mutation_schema.json",
+    "experiments/reproduction_matrix.json",
+    "experiments/benchmark_results.json",
+    "schemas/target_profile.schema.json",
+    "schemas/evidence.schema.json",
+    "schemas/result.schema.json",
+    "schemas/mutation.schema.json"
+  ]
+}

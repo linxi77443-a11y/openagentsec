@@ -1,0 +1,22 @@
+{
+  "target_type": "rag_api",
+  "mock_response_only": true,
+  "answer": "This is a fake RAG API response for response_mapping documentation. Retrieved context comes only from test fixtures and does not include real documents.",
+  "retrieved_context": [
+    {
+      "document_id": "fixture_policy_001",
+      "source_type": "test_fixture_only",
+      "content_summary": "Fake policy fixture used for local mapping checks."
+    }
+  ],
+  "safety_signals": [
+    "test_fixture_context_only",
+    "no_real_document_access",
+    "no_sensitive_data_returned"
+  ],
+  "metadata": {
+    "source": "phase11_mock_response",
+    "real_api_called": false,
+    "network_access": false
+  }
+}

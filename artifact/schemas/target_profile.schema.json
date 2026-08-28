@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TargetProfile",
+  "type": "object",
+  "required": [
+    "target_id",
+    "target_name",
+    "architecture_tier",
+    "capabilities",
+    "observability_state"
+  ],
+  "properties": {
+    "target_id": {
+      "type": "string"
+    },
+    "target_name": {
+      "type": "string"
+    },
+    "architecture_tier": {
+      "type": "string"
+    },
+    "capabilities": {
+      "type": "object"
+    },
+    "observability_state": {
+      "type": "string",
+      "enum": [
+        "observable",
+        "partially_observable",
+        "unobservable"
+      ]
+    },
+    "supported_evidence_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

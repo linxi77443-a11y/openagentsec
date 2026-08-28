@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MutationScenario",
+  "type": "object",
+  "required": [
+    "mutation_id",
+    "parent_scenario_id",
+    "mutation_type",
+    "title",
+    "payload_variant"
+  ],
+  "properties": {
+    "mutation_id": {
+      "type": "string"
+    },
+    "parent_scenario_id": {
+      "type": "string"
+    },
+    "mutation_type": {
+      "type": "string",
+      "enum": [
+        "prompt_mutation",
+        "context_mutation",
+        "delegation_mutation",
+        "parameter_mutation"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "payload_variant": {
+      "type": "object"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "attack_type": {
+      "type": "string"
+    },
+    "oracle_rule": {
+      "type": "string"
+    },
+    "reproduction_requirement": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+target_type: dify
+target_version: "0.6.15"
+environment: test
+identities: []
+tenants: []
+roles: []
+tools: []
+resources: []
+rag_sources: []
+memory_stores: []
+approval_points: []
+connectors: []
+runtime_capabilities: []
+output_channels: []
+observability: {}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidenceItem",
+  "type": "object",
+  "required": [
+    "evidence_id",
+    "evidence_type",
+    "source",
+    "content",
+    "verified"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string"
+    },
+    "evidence_type": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "content": {},
+    "verified": {
+      "type": "boolean"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  }
+}

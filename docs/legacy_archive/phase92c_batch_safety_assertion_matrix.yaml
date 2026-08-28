@@ -1,0 +1,145 @@
+# Phase-92C — Safety Assertion Matrix
+# 原 PRD §4/§12/§16 + 攻击者视角 §3/§11 + v2.0 §4 + v3.1 §4/§6
+---
+batch_id: M-BATCH-RT-001
+
+task_safety_assertions:
+  - task_id: M-BATCH-WS-M19
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    controlled_replay_execution_allowed: false
+    controlled_replay_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    real_system_connection_allowed: false
+    real_api_call_allowed: false
+    real_tool_execution_allowed: false
+    real_data_access_allowed: false
+    synthetic_only: true
+    red_team_engine_not_executable: true
+    dashboard_not_execution_interface: true
+    requires_human_review: false
+
+  - task_id: M-BATCH-WS-M14
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    controlled_replay_execution_allowed: false
+    controlled_replay_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    real_system_connection_allowed: false
+    real_api_call_allowed: false
+    real_tool_execution_allowed: false
+    real_data_access_allowed: false
+    synthetic_only: true
+    red_team_engine_not_executable: true
+    dashboard_not_execution_interface: true
+    requires_human_review: false
+
+  - task_id: M-BATCH-WS-M39
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    controlled_replay_execution_allowed: false
+    controlled_replay_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    real_system_connection_allowed: false
+    real_api_call_allowed: false
+    real_tool_execution_allowed: false
+    real_data_access_allowed: false
+    synthetic_only: true
+    red_team_engine_not_executable: true
+    dashboard_not_execution_interface: true
+    requires_human_review: false
+
+  - task_id: M-BATCH-WS-TOOLTRACE
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    controlled_replay_execution_allowed: false
+    controlled_replay_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    real_system_connection_allowed: false
+    real_api_call_allowed: false
+    real_tool_execution_allowed: false
+    real_data_access_allowed: false
+    synthetic_only: true
+    red_team_engine_not_executable: true
+    dashboard_not_execution_interface: true
+
+  - task_id: M-BATCH-WS-PARSER
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    controlled_replay_execution_allowed: false
+    controlled_replay_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    synthetic_only: true
+
+  - task_id: M-BATCH-WS-KNOWNBAD
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    controlled_replay_execution_allowed: false
+    controlled_replay_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    real_system_connection_allowed: false
+    real_api_call_allowed: false
+    real_tool_execution_allowed: false
+    real_data_access_allowed: false
+    synthetic_only: true
+
+  - task_id: M-BATCH-WS-STATREG
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    controlled_replay_execution_allowed: false
+    controlled_replay_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    real_system_connection_allowed: false
+    real_api_call_allowed: false
+    real_tool_execution_allowed: false
+    real_data_access_allowed: false
+    synthetic_only: true
+
+  - task_id: M-BATCH-WS-SHARED
+    confirmed_vulnerability: false
+    formal_finding_allowed: false
+    production_safety_claimed: false
+    controlled_replay_execution_allowed: false
+    controlled_replay_claimed: false
+    attack_execution_allowed: false
+    payload_generation_allowed: false
+    real_target_selection_allowed: false
+    synthetic_only: true
+
+batch_safety_snapshot:
+  confirmed_vulnerability: false
+  formal_finding_allowed: false
+  production_safety_claimed: false
+  controlled_replay_execution_allowed: false
+  controlled_replay_claimed: false
+  attack_execution_allowed: false
+  payload_generation_allowed: false
+  real_target_selection_allowed: false
+  real_system_connection_allowed: false
+  real_api_call_allowed: false
+  real_tool_execution_allowed: false
+  real_data_access_allowed: false
+  synthetic_only: true
+  red_team_engine_not_executable: true
+  dashboard_not_execution_interface: true

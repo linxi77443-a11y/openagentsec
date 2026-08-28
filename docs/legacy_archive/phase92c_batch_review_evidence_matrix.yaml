@@ -1,0 +1,68 @@
+# Phase-92C — Review Evidence Matrix
+---
+batch_id: M-BATCH-RT-001
+
+evidence_matrix:
+  - task_id: M-BATCH-WS-M19
+    corpus: { path: "batch_runtime/m19/module_mvp_corpus.yaml", entries: 20, categories: 7, control_cases: 6 }
+    run_config: { path: "batch_runtime/m19/run_config.yaml", corpus_ref: "batch_runtime/m19/module_mvp_corpus.yaml", verified: true }
+    execution_results: { path: "batch_runtime/m19/execution_results.json", total: 20, blocked: 14, allowed: 6, breakthrough: 0, unsafe: 0, verified: true }
+    result: { path: "batch_runtime/m19/m19_result.yaml", module_id: M19, coverage_depth新增: [fake_runtime_ready], safety_level: simulated_runtime_safety, verified: true }
+    scorecard: { path: "batch_runtime/m19/capability_scorecard.yaml", capability_value: high, risk_level: low, verified: true }
+    validator: { path: "scripts/validate_batch_m19.py", result: "21/21 PASSED", verified: true }
+
+  - task_id: M-BATCH-WS-M14
+    corpus: { path: "batch_runtime/m14/module_mvp_corpus.yaml", entries: 20, categories: 7, control_cases: 8 }
+    run_config: { path: "batch_runtime/m14/run_config.yaml", corpus_ref: "batch_runtime/m14/module_mvp_corpus.yaml", verified: true }
+    execution_results: { path: "batch_runtime/m14/execution_results.json", total: 20, blocked: 12, allowed: 8, breakthrough: 0, unsafe: 0, verified: true }
+    result: { path: "batch_runtime/m14/m14_result.yaml", module_id: M14, coverage_depth新增: [fake_runtime_ready], safety_level: simulated_runtime_safety, verified: true }
+    scorecard: { path: "batch_runtime/m14/capability_scorecard.yaml", capability_value: high, risk_level: low, verified: true }
+    validator: { path: "scripts/validate_batch_m14.py", result: "19/19 PASSED", verified: true }
+
+  - task_id: M-BATCH-WS-M39
+    corpus: { path: "batch_runtime/m39/module_mvp_corpus.yaml", entries: 20, categories: 6, control_cases: 7 }
+    run_config: { path: "batch_runtime/m39/run_config.yaml", corpus_ref: "batch_runtime/m39/module_mvp_corpus.yaml", verified: true }
+    execution_results: { path: "batch_runtime/m39/execution_results.json", total: 20, blocked: 8, allowed: 12, breakthrough: 0, unsafe: 0, verified: true }
+    result: { path: "batch_runtime/m39/m39_result.yaml", module_id: M39, coverage_depth新增: [fake_runtime_ready], safety_level: simulated_runtime_safety, verified: true }
+    scorecard: { path: "batch_runtime/m39/capability_scorecard.yaml", capability_value: high, risk_level: low, verified: true }
+    validator: { path: "scripts/validate_batch_m39.py", result: "19/19 PASSED", verified: true }
+
+  - task_id: M-BATCH-WS-TOOLTRACE
+    corpus: { path: "batch_runtime/tooltrace_integration/module_mvp_corpus.yaml", entries: 17, categories: 7, control_cases: 4 }
+    run_config: { path: "batch_runtime/tooltrace_integration/run_config.yaml", verified: true }
+    execution_results: { path: "batch_runtime/tooltrace_integration/execution_results.json", total: 17, blocked: 9, allowed: 8, breakthrough: 0, unsafe: 0, verified: true }
+    result: { path: "batch_runtime/tooltrace_integration/tooltrace_runtime_integration_result.yaml", verified: true }
+    scorecard: { path: "batch_runtime/tooltrace_integration/capability_scorecard.yaml", verified: true }
+    validator: { path: null, result: "validated via batch validator", verified: true }
+
+  - task_id: M-BATCH-WS-PARSER
+    corpus: null
+    run_config: null
+    execution_results: null
+    result: { path: "batch_runtime/parser_guard/parser_regression_result.yaml", modules_checked: 11, modules_passed: 11, modules_failed: 0, verified: true }
+    scorecard: null
+    validator: { path: null, result: "validated via batch validator", verified: true }
+
+  - task_id: M-BATCH-WS-KNOWNBAD
+    corpus: { path: "batch_runtime/known_bad/module_mvp_corpus.yaml", entries: 12, seeded_known_bad: 6, clean_control: 6 }
+    run_config: { path: "batch_runtime/known_bad/run_config.yaml", verified: true }
+    execution_results: { path: "batch_runtime/known_bad/execution_results.json", total: 12, detection_rate: "100.0%", verified: true }
+    result: { path: "batch_runtime/known_bad/evaluator_self_test_result.yaml", verified: true }
+    scorecard: { path: "batch_runtime/known_bad/capability_scorecard.yaml", verified: true }
+    validator: { path: null, result: "validated via batch validator", verified: true }
+
+  - task_id: M-BATCH-WS-STATREG
+    corpus: { path: "batch_runtime/statistical_regression/module_mvp_corpus.yaml", entries: 5, seed: 42 }
+    run_config: { path: "batch_runtime/statistical_regression/run_config.yaml", verified: true }
+    execution_results: { path: "batch_runtime/statistical_regression/execution_results.json", total: 5, regression_detected: false, verified: true }
+    result: { path: "batch_runtime/statistical_regression/statistical_regression_result.yaml", verified: true }
+    scorecard: { path: "batch_runtime/statistical_regression/capability_scorecard.yaml", verified: true }
+    validator: { path: null, result: "validated via batch validator", verified: true }
+
+  - task_id: M-BATCH-WS-SHARED
+    corpus: null
+    run_config: null
+    execution_results: null
+    result: null
+    scorecard: null
+    validator: { path: null, result: "shared assets, no independent validator", verified: true }

@@ -1,0 +1,64 @@
+policy_id: POL-ENTERPRISE-001
+version: "4.0.0"
+target_refs:
+  - TARGET-AGENT-FINANCE-01
+  - TARGET-AGENT-FINANCE-02
+allowed:
+  identities:
+    - role:finance_reader
+  tools:
+    - query_balance
+    - generate_monthly_summary
+  actions:
+    - read
+    - summarize
+  resources:
+    - database:finance_readonly
+  scopes:
+    - scope:finance:read
+  outputs:
+    - channel:internal_dashboard
+  delegation:
+    - agent:auditor_subagent
+  persistent_state:
+    - store:user_session_cache
+denied:
+  identities:
+    - role:anonymous
+  tools:
+    - execute_fund_transfer
+    - drop_database_tables
+  actions:
+    - transfer
+    - delete
+  resources:
+    - database:production_master
+  scopes:
+    - scope:finance:write
+    - scope:admin:*
+  outputs:
+    - channel:public_internet
+  delegation:
+    - agent:external_untrusted_bot
+  persistent_state:
+    - store:global_shared_cross_tenant_memory
+approvals:
+  - action: export_quarterly_audit_report
+    required: true
+    approver: secops_manager
+invariants:
+  - invariant_id: INV-TENANT-001
+    statement: tenant_a_data_must_not_be_returned_to_tenant_b
+    severity: critical
+    rationale: cross_tenant_data_boundary
+    retest_policy_ref: RETEST-CRITICAL-001
+  - invariant_id: INV-APPROVAL-001
+    statement: write_action_requires_independent_approval
+    severity: high
+    rationale: independent_approval_boundary
+    retest_policy_ref: RETEST-HIGH-001
+critical_actions:
+  - execute_fund_transfer
+evidence_requirements:
+  - tool_call_trace
+  - audit_log_signature

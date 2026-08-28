@@ -1,0 +1,15 @@
+{
+  "target_type": "chatbot_api",
+  "mock_response_only": true,
+  "answer": "This is a fake chatbot API response for response_mapping documentation. The test assistant refuses unsafe override instructions and does not reveal system prompts.",
+  "safety_signals": [
+    "prompt_injection_refused",
+    "no_system_prompt_exposure",
+    "no_sensitive_data_returned"
+  ],
+  "metadata": {
+    "source": "phase11_mock_response",
+    "real_api_called": false,
+    "network_access": false
+  }
+}

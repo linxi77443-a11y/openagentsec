@@ -1,0 +1,167 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+title: SecurityPolicy
+description: Declarative Governance Plane security policy schema for OpenAgentSec (PRD v4.0.2 §5).
+type: object
+required:
+  - policy_id
+  - version
+  - target_refs
+  - allowed
+  - denied
+  - approvals
+  - invariants
+  - critical_actions
+  - evidence_requirements
+additionalProperties: false
+
+properties:
+  policy_id:
+    type: string
+    pattern: "^[a-zA-Z0-9_-]{1,128}$"
+  version:
+    type: string
+    pattern: "^[a-zA-Z0-9._-]{1,64}$"
+  target_refs:
+    type: array
+    items:
+      type: string
+      pattern: "^[a-zA-Z0-9._-]{1,128}$"
+    minItems: 1
+    uniqueItems: true
+
+  allowed:
+    $ref: "#/definitions/PolicyPermissions"
+
+  denied:
+    $ref: "#/definitions/PolicyPermissions"
+
+  approvals:
+    type: array
+    items:
+      $ref: "#/definitions/PolicyApproval"
+    uniqueItems: false
+
+  invariants:
+    type: array
+    items:
+      $ref: "#/definitions/PolicyInvariant"
+    uniqueItems: false
+
+  critical_actions:
+    type: array
+    items:
+      type: string
+      pattern: "^[a-zA-Z0-9._:-]{1,128}$"
+    uniqueItems: true
+
+  evidence_requirements:
+    type: array
+    items:
+      type: string
+      pattern: "^[a-zA-Z0-9._:-]{1,128}$"
+    uniqueItems: true
+
+definitions:
+  PolicyPermissions:
+    type: object
+    required:
+      - identities
+      - tools
+      - actions
+      - resources
+      - scopes
+      - outputs
+      - delegation
+      - persistent_state
+    additionalProperties: false
+    properties:
+      identities:
+        type: array
+        items:
+          type: string
+        uniqueItems: true
+      tools:
+        type: array
+        items:
+          type: string
+        uniqueItems: true
+      actions:
+        type: array
+        items:
+          type: string
+        uniqueItems: true
+      resources:
+        type: array
+        items:
+          type: string
+        uniqueItems: true
+      scopes:
+        type: array
+        items:
+          type: string
+        uniqueItems: true
+      outputs:
+        type: array
+        items:
+          type: string
+        uniqueItems: true
+      delegation:
+        type: array
+        items:
+          type: string
+        uniqueItems: true
+      persistent_state:
+        type: array
+        items:
+          type: string
+        uniqueItems: true
+
+  PolicyApproval:
+    type: object
+    required:
+      - action
+      - required
+      - approver
+    additionalProperties: false
+    properties:
+      action:
+        type: string
+        pattern: "^[a-zA-Z0-9._:-]{1,128}$"
+      required:
+        type: boolean
+      approver:
+        type: string
+        minLength: 1
+        maxLength: 128
+
+  PolicyInvariant:
+    type: object
+    required:
+      - invariant_id
+      - statement
+      - severity
+      - rationale
+    additionalProperties: false
+    properties:
+      invariant_id:
+        type: string
+        pattern: "^[a-zA-Z0-9._:-]{1,128}$"
+      statement:
+        type: string
+        minLength: 1
+      severity:
+        type: string
+        enum:
+          - informational
+          - low
+          - medium
+          - high
+          - critical
+      rationale:
+        type: string
+        minLength: 1
+      retest_policy_ref:
+        type:
+          - string
+          - "null"
+        pattern: "^[a-zA-Z0-9._:-]{1,128}$"

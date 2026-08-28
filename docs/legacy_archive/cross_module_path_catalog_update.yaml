@@ -1,0 +1,268 @@
+# Cross-Module Attack Path Catalog Update
+# Phase 3 Task 3.2 — 新增 5 条跨模块攻击路径
+# 原有 3 条: PATH-DEV-RUNTIME / PATH-RAG-RUNTIME / PATH-SA-RUNTIME
+
+catalog_update:
+  update_id: "cross_module_path_catalog_update_v2"
+  version: "v2.0"
+  timestamp: "2026-07-07T12:00:00.000000"
+  conceptual_only: true
+  executable: false
+  attack_execution_allowed: false
+  total_existing_paths: 3
+  total_new_paths: 5
+  total_combined_paths: 8
+
+new_paths:
+
+  # ── PATH-004: CHATBOT→AGENT ──────────────────────────────────────────
+  - path_id: "PATH-CHATBOT-AGENT-001"
+    path_name: "Prompt Injection → Agent Multi-Source Input Pollution"
+    conceptual_path: true
+    executable: false
+    attack_execution_allowed: false
+    involved_modules: ["M01", "M38"]
+    involved_layers: ["chatbot", "agent"]
+    attack_flow:
+      - step: 1
+        module: "M01"
+        action: "direct_prompt_injection"
+        description: "Attacker injects malicious instructions via chatbot interface"
+        boundary_crossed: "instruction_boundary"
+      - step: 2
+        module: "M38"
+        action: "multi_source_input_pollution"
+        description: "Injected content propagates to agent's multi-source input processing"
+        boundary_crossed: "source_trust_boundary"
+    edge_sequence:
+      - source: "M01"
+        target: "M38"
+        edge_type: "context_influence"
+        conceptual_relation: "Chatbot instruction injection propagates as untrusted source content to agent input processing"
+        propagation_rule_type: "cascading_trust_degradation"
+        theoretical_scenario: "Malicious prompt in chatbot gets included as context for agent decision-making"
+    risk_assessment:
+      conceptual_risk: "high"
+      amplification: "Agent treats chatbot-sourced content as higher-trust input"
+      attenuation: ["input_validation", "source_priority_rules", "boundary_enforcement"]
+    safety_fields:
+      confirmed_vulnerability: false
+      formal_finding_allowed: false
+      production_safety_claimed: false
+      human_review_required: true
+      synthetic_only: true
+
+  # ── PATH-005: AGENT→SUPPLY_CHAIN ─────────────────────────────────────
+  - path_id: "PATH-AGENT-SUPPLY-CHAIN-001"
+    path_name: "Agent Input Pollution → MCP Tool Descriptor Manipulation"
+    conceptual_path: true
+    executable: false
+    attack_execution_allowed: false
+    involved_modules: ["M38", "M43", "M44"]
+    involved_layers: ["agent", "supply_chain"]
+    attack_flow:
+      - step: 1
+        module: "M38"
+        action: "multi_source_input_injection"
+        description: "Agent processes malicious content from untrusted source"
+        boundary_crossed: "source_trust_boundary"
+      - step: 2
+        module: "M43"
+        action: "tool_descriptor_poisoning"
+        description: "Malicious agent input influences tool descriptor trust evaluation"
+        boundary_crossed: "tool_descriptor_boundary"
+      - step: 3
+        module: "M44"
+        action: "a2a_identity_trust_bypass"
+        description: "Compromised tool context enables agent-to-agent identity confusion"
+        boundary_crossed: "identity_trust_boundary"
+    edge_sequence:
+      - source: "M38"
+        target: "M43"
+        edge_type: "trust_boundary_transfer"
+        conceptual_relation: "Agent source confusion transfers to tool descriptor trust evaluation"
+        propagation_rule_type: "cascading_trust_degradation"
+        theoretical_scenario: "Poisoned agent context causes relaxed validation of tool metadata"
+      - source: "M43"
+        target: "M44"
+        edge_type: "permission_dependency"
+        conceptual_relation: "Compromised tool descriptor enables identity trust bypass in A2A communication"
+        propagation_rule_type: "trust_boundary_violation"
+        theoretical_scenario: "Untrusted tool descriptor used as identity credential in agent-to-agent exchange"
+    risk_assessment:
+      conceptual_risk: "critical"
+      amplification: "Supply chain compromise through agent-level input pollution"
+      attenuation: ["tool_descriptor_validation", "identity_verification", "source_isolation"]
+    safety_fields:
+      confirmed_vulnerability: false
+      formal_finding_allowed: false
+      production_safety_claimed: false
+      human_review_required: true
+      synthetic_only: true
+
+  # ── PATH-006: RAG→DATA_EXFIL ─────────────────────────────────────────
+  - path_id: "PATH-RAG-DATA-EXFIL-001"
+    path_name: "Indirect Prompt Injection → Data Exfiltration Path"
+    conceptual_path: true
+    executable: false
+    attack_execution_allowed: false
+    involved_modules: ["M06", "M34", "M20"]
+    involved_layers: ["rag", "data_exfiltration"]
+    attack_flow:
+      - step: 1
+        module: "M06"
+        action: "indirect_prompt_injection"
+        description: "Malicious content injected into RAG knowledge base"
+        boundary_crossed: "retrieval_trust_boundary"
+      - step: 2
+        module: "M34"
+        action: "knowledge_base_poisoning"
+        description: "Poisoned content retrieved and processed by RAG pipeline"
+        boundary_crossed: "data_source_boundary"
+      - step: 3
+        module: "M20"
+        action: "data_exfiltration_path"
+        description: "Retrieved malicious content triggers data exfiltration behavior"
+        boundary_crossed: "data_boundary"
+    edge_sequence:
+      - source: "M06"
+        target: "M34"
+        edge_type: "context_influence"
+        conceptual_relation: "Indirect injection content stored in knowledge base becomes persistent poisoning"
+        propagation_rule_type: "persistent_threat_propagation"
+        theoretical_scenario: "Injected instructions in retrieved documents influence RAG output generation"
+      - source: "M34"
+        target: "M20"
+        edge_type: "amplification_edge"
+        conceptual_relation: "Poisoned RAG output provides cover for data exfiltration attempt"
+        propagation_rule_type: "cascading_trust_degradation"
+        theoretical_scenario: "RAG-generated response includes exfiltration instructions disguised as legitimate content"
+    risk_assessment:
+      conceptual_risk: "high"
+      amplification: "RAG retrieval amplifies injection reach across all queries using poisoned documents"
+      attenuation: ["retrieval_validation", "output_filtering", "data_loss_prevention"]
+    safety_fields:
+      confirmed_vulnerability: false
+      formal_finding_allowed: false
+      production_safety_claimed: false
+      human_review_required: true
+      synthetic_only: true
+
+  # ── PATH-007: IDENTITY→PERMISSION ────────────────────────────────────
+  - path_id: "PATH-IDENTITY-PERMISSION-001"
+    path_name: "Identity Forgery → Permission Boundary Bypass"
+    conceptual_path: true
+    executable: false
+    attack_execution_allowed: false
+    involved_modules: ["M10", "M11", "M08", "M41"]
+    involved_layers: ["chatbot", "rag", "agent"]
+    attack_flow:
+      - step: 1
+        module: "M10"
+        action: "cross_user_session_leakage"
+        description: "Session data leakage between users provides credential material"
+        boundary_crossed: "session_boundary"
+      - step: 2
+        module: "M11"
+        action: "data_source_trust_exploitation"
+        description: "Leaked session context used to manipulate data source trust evaluation"
+        boundary_crossed: "trust_boundary"
+      - step: 3
+        module: "M08"
+        action: "role_boundary_bypass"
+        description: "Forged identity context bypasses role boundary validation"
+        boundary_crossed: "role_boundary"
+      - step: 4
+        module: "M41"
+        action: "service_account_abuse"
+        description: "Compromised role context enables service account permission abuse"
+        boundary_crossed: "permission_boundary"
+    edge_sequence:
+      - source: "M10"
+        target: "M11"
+        edge_type: "evidence_dependency"
+        conceptual_relation: "Session leakage provides material for trust boundary exploitation"
+        propagation_rule_type: "credential_propagation"
+        theoretical_scenario: "Leaked session tokens used to impersonate trusted data source"
+      - source: "M11"
+        target: "M08"
+        edge_type: "trust_boundary_transfer"
+        conceptual_relation: "Compromised data source trust enables role boundary bypass"
+        propagation_rule_type: "trust_boundary_violation"
+        theoretical_scenario: "Forged data source credentials accepted as valid for role escalation"
+      - source: "M08"
+        target: "M41"
+        edge_type: "permission_dependency"
+        conceptual_relation: "Bypassed role boundary enables service account permission abuse"
+        propagation_rule_type: "privilege_escalation"
+        theoretical_scenario: "Elevated role context used to access service account beyond authorized scope"
+    risk_assessment:
+      conceptual_risk: "critical"
+      amplification: "Identity forgery compounds across 4 modules, each amplifying the permission level"
+      attenuation: ["session_isolation", "multi_factor_verification", "permission_audit", "service_account_monitoring"]
+    safety_fields:
+      confirmed_vulnerability: false
+      formal_finding_allowed: false
+      production_safety_claimed: false
+      human_review_required: true
+      synthetic_only: true
+
+  # ── PATH-008: MULTI_AGENT→IMPACT ─────────────────────────────────────
+  - path_id: "PATH-MULTI-AGENT-IMPACT-001"
+    path_name: "Multi-Agent Coordination Failure → Business Impact"
+    conceptual_path: true
+    executable: false
+    attack_execution_allowed: false
+    involved_modules: ["M37", "M21", "M22"]
+    involved_layers: ["agent", "reporting"]
+    attack_flow:
+      - step: 1
+        module: "M37"
+        action: "multi_agent_coordination_exploitation"
+        description: "Attacker exploits coordination gap between multiple agents"
+        boundary_crossed: "delegation_boundary"
+      - step: 2
+        module: "M21"
+        action: "impact_path_reconstruction"
+        description: "Coordination failure creates unmonitored impact path"
+        boundary_crossed: "audit_boundary"
+      - step: 3
+        module: "M22"
+        action: "business_impact_evidence_gap"
+        description: "Impact path bypasses business impact evidence collection"
+        boundary_crossed: "reporting_boundary"
+    edge_sequence:
+      - source: "M37"
+        target: "M21"
+        edge_type: "audit_dependency"
+        conceptual_relation: "Multi-agent coordination failure breaks impact path reconstruction"
+        propagation_rule_type: "audit_gap_exploitation"
+        theoretical_scenario: "Agents delegate tasks without proper handoff audit trail"
+      - source: "M21"
+        target: "M22"
+        edge_type: "evidence_dependency"
+        conceptual_relation: "Broken impact path prevents business impact evidence collection"
+        propagation_rule_type: "evidence_gap_propagation"
+        theoretical_scenario: "Missing audit trail means business impact cannot be reconstructed or attributed"
+    risk_assessment:
+      conceptual_risk: "high"
+      amplification: "Multi-agent coordination gaps compound into untraceable business impact"
+      attenuation: ["coordination_protocol", "inter_agent_audit", "impact_evidence_collection", "business_continuity_check"]
+    safety_fields:
+      confirmed_vulnerability: false
+      formal_finding_allowed: false
+      production_safety_claimed: false
+      human_review_required: true
+      synthetic_only: true
+
+# ── Summary ──────────────────────────────────────────────────────────────
+layer_coverage:
+  chatbot: {paths: ["PATH-CHATBOT-AGENT-001", "PATH-IDENTITY-PERMISSION-001"], count: 2}
+  rag: {paths: ["PATH-RAG-DATA-EXFIL-001", "PATH-IDENTITY-PERMISSION-001"], count: 2}
+  agent: {paths: ["PATH-CHATBOT-AGENT-001", "PATH-AGENT-SUPPLY-CHAIN-001", "PATH-IDENTITY-PERMISSION-001", "PATH-MULTI-AGENT-IMPACT-001"], count: 4}
+  supply_chain: {paths: ["PATH-AGENT-SUPPLY-CHAIN-001"], count: 1}
+  reporting: {paths: ["PATH-MULTI-AGENT-IMPACT-001"], count: 1}
+
+risk_distribution:
+  critical: 2  # PATH-AGENT-SUPPLY-CHAIN-001, PATH-IDENTITY-PERMISSION-001
+  high: 3      # PATH-CHATBOT-AGENT-001, PATH-RAG-DATA-EXFIL-001, PATH-MULTI-AGENT-IMPACT-001

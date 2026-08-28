@@ -1,0 +1,141 @@
+# Phase-95A Open Gap Classification
+# Read-only classification of open gaps across all modules (M01-M50), Red Team reports (RED-001 to RED-015), and platform components
+
+phase: "95A"
+date: "2026-08-01"
+type: "design_gate"
+assessment_mode: "not_applicable"
+
+# ============================================================
+# Mandatory Declarations
+# ============================================================
+assessment_execution_performed: false
+capability_engine_executed: false
+execution_results_generated: false
+capability_value: "not_applicable"
+risk_level: "not_applicable"
+coverage_change_claimed: false
+registered_module: false
+
+# ============================================================
+# Safety Boundary Flags
+# ============================================================
+safety_fields:
+  confirmed_vulnerability: false
+  formal_finding_allowed: false
+  production_safety_claimed: false
+  controlled_replay_claimed: false
+  attack_execution_allowed: false
+  payload_generation_allowed: false
+  real_target_selection_allowed: false
+  real_system_connection_allowed: false
+  real_tool_execution_allowed: false
+  real_data_access_allowed: false
+  synthetic_only: true
+  red_team_engine_not_executable: true
+  dashboard_not_execution_interface: true
+
+# ============================================================
+# Gap Classification Schema
+# ============================================================
+# severity: critical | high | medium | low
+# blocking: true | false (blocks red team operations or system progression)
+# category: canonical_metric | execution | design | documentation | infrastructure
+# resolution_path: immediate | future | deferred | out_of_scope
+
+# ============================================================
+# Open Gaps Classification (Actionable & Documented)
+# ============================================================
+
+open_gaps:
+  - gap_id: "GAP-001"
+    description: "Canonical capability_value/risk_level mapping rules not approved for M43-M50"
+    origin: "canonical_capability_risk_schema_addendum.md §3"
+    category: "canonical_metric"
+    severity: "medium"
+    blocking: false
+    affected_modules: ["M43", "M44", "M45", "M46", "M47", "M48", "M49", "M50"]
+    current_state: "canonical_capability_status=unresolved, canonical_risk_status=unresolved"
+    resolution_path: "future"
+    resolution_action: "Define and approve domain mapping rules when transitioning from simulated to production assessment"
+    non_blocking_rationale: "documentation_debt_only per addendum §3.2. Does not affect module completion status, coverage depth, or red team report validity."
+
+  - gap_id: "GAP-002"
+    description: "M45/M46/M47 formal_simulated_mvp documentation alignment between individual closure decisions and Phase 88D snapshot"
+    origin: "Phase 88D snapshot vs individual closure notes"
+    category: "documentation"
+    severity: "low"
+    blocking: false
+    affected_modules: ["M45", "M46", "M47"]
+    current_state: "Closure notes recommend remain_simulated_mvp_candidate; Phase 88D snapshot indicates mvp_complete"
+    resolution_path: "future"
+    resolution_action: "Synchronize closure decision notes with Phase 88D snapshot in a documentation pass"
+    non_blocking_rationale: "All three modules pass 100% of validation checks and have judge approval."
+
+  - gap_id: "GAP-003"
+    description: "Cross-module attack path execution pending (Phase 93A dynamics design complete)"
+    origin: "Phase 93A design complete"
+    category: "execution"
+    severity: "medium"
+    blocking: false
+    affected_modules: ["M01-M50"]
+    current_state: "Design complete (propagation dynamics, decay model, amplification factors, Markov prediction)"
+    resolution_path: "future"
+    resolution_action: "Execute cross-module paths with synthetic mock data in future RED- action tasks"
+    non_blocking_rationale: "15 indexed red team reports already validate 9 distinct cross-module paths."
+
+  - gap_id: "GAP-004"
+    description: "Dashboard full UI implementation pending (Phase 87A design & Phase 89B prototype complete)"
+    origin: "Phase 87A design, Phase 89B prototype"
+    category: "infrastructure"
+    severity: "low"
+    blocking: false
+    current_state: "Design complete, isolation prototype created with validation passed"
+    resolution_path: "future"
+    resolution_action: "Complete full UI dashboard implementation in a future enhancement task"
+    non_blocking_rationale: "Dashboard is a visualization interface, not an execution component or prerequisite."
+
+  - gap_id: "GAP-005"
+    description: "Autonomous Red Team Engine runtime runner implementation pending (Phase 86A/86B schema frozen)"
+    origin: "Phase 86A/86B design"
+    category: "infrastructure"
+    severity: "low"
+    blocking: false
+    current_state: "Design complete, attack chain schema frozen, fixture loader PoC exists"
+    resolution_path: "future"
+    resolution_action: "Implement engine automation runner in a future task"
+    non_blocking_rationale: "Red team actions are safely conducted via standardized playbooks."
+
+  - gap_id: "GAP-006"
+    description: "Controlled replay (PRD_ADV Level 4) deferred"
+    origin: "PRD_ADV §4 Level 4"
+    category: "execution"
+    severity: "low"
+    blocking: false
+    current_state: "Explicitly deferred per PRD_ADV §4 — requires production environment"
+    resolution_path: "deferred"
+    resolution_action: "Assess when production_safety transitions out of scope"
+    non_blocking_rationale: "Out of scope. All PRDs explicitly maintain production_safety: out_of_scope."
+
+  - gap_id: "GAP-007"
+    description: "Full corpus execution vs MVP corpus execution for modules"
+    origin: "Module coverage gap descriptions"
+    category: "execution"
+    severity: "low"
+    blocking: false
+    current_state: "MVP corpus (10 entries per module) executed and validated; 75-entry full corpus available"
+    resolution_path: "future"
+    resolution_action: "Run full corpus regression suites when extended depth is required"
+    non_blocking_rationale: "MVP corpus provides sufficient simulated validation depth per PRD v1.0 §6."
+
+# ============================================================
+# Gap Summary & Reconciliation Matrix
+# ============================================================
+gap_summary:
+  total_open: 7
+  total_blocking: 0
+  critical: 0
+  high: 0
+  medium: 2  # GAP-001, GAP-003
+  low: 5     # GAP-002, GAP-004, GAP-005, GAP-006, GAP-007
+  conclusion: "Zero blocking gaps. All open items are non-blocking documentation, future execution, or infrastructure enhancement tasks."

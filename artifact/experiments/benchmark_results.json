@@ -1,0 +1,27 @@
+{
+  "benchmark_id": "OpenAgentSec-Agent-Security-Benchmark",
+  "version": "1.0.0",
+  "domains": {
+    "memory_security": {
+      "subsequent_deviation_rate_mvp1": 0.0,
+      "memory_persistence_risk_alone": false
+    },
+    "retrieval_security": {
+      "attack_success_rate": 1.0,
+      "taint_to_action_lag_steps": 1,
+      "mitigation_trust_filtering": 1.0,
+      "mitigation_context_isolation": 1.0,
+      "mitigation_passive_annotation": 0.0
+    },
+    "authorization_security": {
+      "authorization_bypass_rate": 0.0,
+      "parameter_violation_block_rate": 1.0,
+      "authorization_layer_coverage": 1.0
+    },
+    "reproduction_governance": {
+      "reproduction_rate": 1.0,
+      "variance_detected": false,
+      "fail_closed_active": true
+    }
+  }
+}

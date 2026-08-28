@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use OpenAgentSec in your research or evaluation, please cite it as below."
+title: "OpenAgentSec: A Research Framework for Evidence-based Security Evaluation of Tool-Using AI Agents"
+authors:
+  - name: "OpenAgentSec Contributors"
+version: 1.0.0
+date-released: 2026-08-28
+license: Apache-2.0
+url: "https://github.com/linxi77443-a11y/openagentsec"
+repository-code: "https://github.com/linxi77443-a11y/openagentsec"
+keywords:
+  - "ai-agent-security"
+  - "security-benchmark"
+  - "stateful-agents"
+  - "tool-boundary-oracle"
+  - "reproducibility"
+  - "rag-security"

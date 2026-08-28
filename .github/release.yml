@@ -1,0 +1,50 @@
+name: Release Verification Workflow
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  verify_release:
+    name: Verify Release Criteria
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Verify Version & Documentation
+        run: |
+          test -f VERSION
+          test -f CHANGELOG.md
+          test -f CITATION.cff
+          test -f docs/research/openagentsec_technical_report.md
+          test -f docs/research/threat_model.md
+          test -f docs/research/evaluation_methodology.md
+          test -f docs/research/benchmark_specification.md
+          test -f docs/release/quick_start.md
+          test -f docs/release/benchmark_results.md
+          test -f docs/release/release_checklist.md
+
+      - name: Run Full Benchmark & Integration Tests
+        run: |
+          pytest tests/integration/ -v
+
+      - name: Validate Research Artifact Exports
+        run: |
+          test -f artifact/MANIFEST.json
+          test -f artifact/benchmark/benchmark_v1.0.0.json
+          test -f artifact/benchmark/scenarios.json
+          test -f artifact/benchmark/metrics.json
+          test -f artifact/benchmark/targets.json

@@ -1,0 +1,80 @@
+# Phase-92C — Coverage Claim Reconciliation
+---
+batch_id: M-BATCH-RT-001
+
+coverage_claims:
+  - task_id: M-BATCH-WS-M19
+    module_id: M19
+    coverage_change_claimed: true
+    previously_judge_approved: true
+    duplicate_coverage_credit_allowed: false
+    duplicate_reason: "M19-RT-001 已于本会话通过裁判审核 (commit 5e97738b)，本批次 claim 为重复覆盖"
+    coverage_depth_before: [mapped_only, reference_done, simulated_mvp, adversarial_ready, multiturn_ready]
+    coverage_depth_after: [mapped_only, reference_done, simulated_mvp, adversarial_ready, multiturn_ready, fake_runtime_ready]
+    safety_level_before: proposal_safety
+    safety_level_after: simulated_runtime_safety
+    production_safety: out_of_scope
+    coverage_credit_granted: false
+    coverage_credit_reason: "duplicate coverage claim with M19-RT-001, pending dedup resolution"
+
+  - task_id: M-BATCH-WS-M14
+    module_id: M14
+    coverage_change_claimed: true
+    coverage_depth_before: [mapped_only, reference_done, simulated_mvp, adversarial_ready]
+    coverage_depth_after: [mapped_only, reference_done, simulated_mvp, adversarial_ready, fake_runtime_ready]
+    safety_level_before: proposal_safety
+    safety_level_after: simulated_runtime_safety
+    production_safety: out_of_scope
+    coverage_credit_granted: false
+    coverage_credit_reason: "pending judge review"
+
+  - task_id: M-BATCH-WS-M39
+    module_id: M39
+    coverage_change_claimed: true
+    coverage_depth_before: [mapped_only, reference_done, simulated_mvp, adversarial_ready]
+    coverage_depth_after: [mapped_only, reference_done, simulated_mvp, adversarial_ready, fake_runtime_ready]
+    safety_level_before: proposal_safety
+    safety_level_after: simulated_runtime_safety
+    production_safety: out_of_scope
+    coverage_credit_granted: false
+    coverage_credit_reason: "pending judge review"
+
+  - task_id: M-BATCH-WS-TOOLTRACE
+    module_id: SHARED
+    coverage_change_claimed: false
+    coverage_credit_granted: false
+
+  - task_id: M-BATCH-WS-PARSER
+    module_id: SHARED
+    coverage_change_claimed: false
+    coverage_credit_granted: false
+
+  - task_id: M-BATCH-WS-KNOWNBAD
+    module_id: SHARED
+    coverage_change_claimed: false
+    coverage_credit_granted: false
+
+  - task_id: M-BATCH-WS-STATREG
+    module_id: SHARED
+    coverage_change_claimed: false
+    coverage_credit_granted: false
+
+  - task_id: M-BATCH-WS-SHARED
+    module_id: SHARED
+    coverage_change_claimed: false
+    coverage_credit_granted: false
+
+unchanged_modules:
+  - module_id: M04
+    status: "already fake_runtime_ready, unchanged"
+  - module_id: M07
+    status: "already fake_runtime_ready, unchanged"
+  - module_id: M08
+    status: "already fake_runtime_ready, unchanged"
+  - module_id: "M43-M50"
+    status: "v2.0 modules, mvp_complete, unchanged"
+  - module_id: "RED-001~RED-017"
+    status: "closed/judge_approved, unchanged"
+
+batch_coverage_credit_granted: false
+batch_registered_as_module: false

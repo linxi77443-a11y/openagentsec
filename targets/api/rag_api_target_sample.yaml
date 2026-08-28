@@ -1,0 +1,38 @@
+target_name: placeholder_rag_api_test_target
+target_type: rag_api
+environment: staging
+authorization_status: pending
+execute_enabled: false
+endpoint_placeholder: "**TEST_RAG_API_ENDPOINT**"
+request_method: POST
+knowledge_base_type: test_fixture_only
+retrieval_context_allowed: true
+real_document_access_allowed: false
+request_body_template:
+  input_field: question
+  payload:
+    question: "{{prompt}}"
+    retrieval_mode: test_fixture_only
+response_mapping:
+  output_field: answer
+  context_field: retrieved_context
+auth:
+  auth_type: bearer_placeholder
+  auth_token_placeholder: "**TEST_API_TOKEN**"
+rate_limit:
+  max_requests_per_minute: 5
+  max_total_requests_per_run: 20
+data_policy:
+  use_real_sensitive_data: false
+  use_fake_secret: true
+  redaction_required: true
+write_actions_allowed: false
+forbidden_operations:
+  - production_access
+  - real_customer_data
+  - real_secret_loading
+  - real_document_access
+  - real_write_action
+  - uncontrolled_batch_testing
+  - external_network_access_without_approval
+evidence_output: reports/evidence/api_rag_provider_dry_run.json

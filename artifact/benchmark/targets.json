@@ -1,0 +1,287 @@
+[
+  {
+    "target_id": "TARGET-LANGGRAPH-MVP1",
+    "target_name": "LangGraphMVP1TargetAgent",
+    "architecture_tier": "single_turn",
+    "capabilities": {
+      "memory_persistence": false,
+      "memory_retrieval": false,
+      "context_injection": false,
+      "decision_coupling": false,
+      "policy_enforcement_point": false,
+      "tool_execution": true
+    },
+    "observability_state": "observable",
+    "adapter_type": "whitebox_langgraph",
+    "supported_evidence_types": [
+      "tool_execution_log",
+      "state_transition_trace"
+    ],
+    "multi_agent": false,
+    "agent_count": 1,
+    "delegation": false,
+    "message_trace": false,
+    "trust_graph": false,
+    "delegation_depth": 1,
+    "max_agent_hops": 1,
+    "trust_observable": false,
+    "description": "LangGraph single-turn agent without retrieval or persistent memory."
+  },
+  {
+    "target_id": "TARGET-LANGGRAPH-RETRIEVAL-COUPLED",
+    "target_name": "LangGraphRetrievalCoupledTargetAgent",
+    "architecture_tier": "retrieval_augmented",
+    "capabilities": {
+      "memory_persistence": true,
+      "memory_retrieval": true,
+      "context_injection": true,
+      "decision_coupling": true,
+      "policy_enforcement_point": false,
+      "tool_execution": true
+    },
+    "observability_state": "observable",
+    "adapter_type": "whitebox_langgraph",
+    "supported_evidence_types": [
+      "tool_execution_log",
+      "state_transition_trace",
+      "retrieval_receipt",
+      "context_injection_trace",
+      "decision_dependency_trace"
+    ],
+    "multi_agent": false,
+    "agent_count": 1,
+    "delegation": false,
+    "message_trace": false,
+    "trust_graph": false,
+    "delegation_depth": 1,
+    "max_agent_hops": 1,
+    "trust_observable": false,
+    "description": "Retrieval-augmented LangGraph agent coupling memory retrieval into decision reasoning."
+  },
+  {
+    "target_id": "TARGET-LANGGRAPH-AUTH-WHITEBOX",
+    "target_name": "LangGraphAuthorizationAwareTargetAgent",
+    "architecture_tier": "authorization_aware",
+    "capabilities": {
+      "memory_persistence": false,
+      "memory_retrieval": false,
+      "context_injection": false,
+      "decision_coupling": false,
+      "policy_enforcement_point": true,
+      "rbac_identity": true,
+      "approval_gate": true,
+      "parameter_scope_validation": false,
+      "tool_execution": true
+    },
+    "observability_state": "observable",
+    "adapter_type": "whitebox_langgraph",
+    "supported_evidence_types": [
+      "tool_execution_log",
+      "state_transition_trace",
+      "authorization_check_receipt"
+    ],
+    "multi_agent": false,
+    "agent_count": 1,
+    "delegation": false,
+    "message_trace": false,
+    "trust_graph": false,
+    "delegation_depth": 1,
+    "max_agent_hops": 1,
+    "trust_observable": false,
+    "description": "Authorization-aware LangGraph agent with pre-execution PEP, RBAC, and approval gates."
+  },
+  {
+    "target_id": "TARGET-LANGGRAPH-PARAM-WHITEBOX",
+    "target_name": "ParameterAuthorizationAwareTargetAgent",
+    "architecture_tier": "parameter_aware",
+    "capabilities": {
+      "memory_persistence": false,
+      "memory_retrieval": false,
+      "context_injection": false,
+      "decision_coupling": false,
+      "policy_enforcement_point": true,
+      "rbac_identity": true,
+      "approval_gate": true,
+      "parameter_scope_validation": true,
+      "tool_execution": true
+    },
+    "observability_state": "observable",
+    "adapter_type": "whitebox_langgraph",
+    "supported_evidence_types": [
+      "tool_execution_log",
+      "state_transition_trace",
+      "authorization_check_receipt",
+      "authorization_parameter_check_receipt"
+    ],
+    "multi_agent": false,
+    "agent_count": 1,
+    "delegation": false,
+    "message_trace": false,
+    "trust_graph": false,
+    "delegation_depth": 1,
+    "max_agent_hops": 1,
+    "trust_observable": false,
+    "description": "4-layer authorization agent validating identity, permissions, approvals, and parameter scope."
+  },
+  {
+    "target_id": "TARGET-LANGCHAIN-REAL-AGENT",
+    "target_name": "LangChainRealTargetAgent",
+    "architecture_tier": "framework_adapter",
+    "capabilities": {
+      "memory_persistence": false,
+      "memory_retrieval": false,
+      "context_injection": false,
+      "decision_coupling": false,
+      "policy_enforcement_point": false,
+      "tool_execution": true,
+      "callback_interception": true
+    },
+    "observability_state": "partially_observable",
+    "adapter_type": "langchain_callback",
+    "supported_evidence_types": [
+      "tool_execution_log",
+      "state_transition_trace"
+    ],
+    "multi_agent": false,
+    "agent_count": 1,
+    "delegation": false,
+    "message_trace": false,
+    "trust_graph": false,
+    "delegation_depth": 1,
+    "max_agent_hops": 1,
+    "trust_observable": false,
+    "description": "Real LangChain framework agent mediated by CallbackHandler interception."
+  },
+  {
+    "target_id": "TARGET-MCP-GATEWAY-BOUNDARY",
+    "target_name": "MCPClientTargetAgent",
+    "architecture_tier": "protocol_boundary",
+    "capabilities": {
+      "memory_persistence": false,
+      "memory_retrieval": false,
+      "context_injection": false,
+      "decision_coupling": false,
+      "policy_enforcement_point": true,
+      "parameter_scope_validation": true,
+      "tool_execution": true,
+      "mcp_gateway_interception": true
+    },
+    "observability_state": "partially_observable",
+    "adapter_type": "mcp_gateway",
+    "supported_evidence_types": [
+      "tool_execution_log",
+      "state_transition_trace",
+      "authorization_check_receipt"
+    ],
+    "multi_agent": false,
+    "agent_count": 1,
+    "delegation": false,
+    "message_trace": false,
+    "trust_graph": false,
+    "delegation_depth": 1,
+    "max_agent_hops": 1,
+    "trust_observable": false,
+    "description": "Agent mediated exclusively via an independent MCP Tool Gateway proxy."
+  },
+  {
+    "target_id": "TARGET-COMMERCIAL-LLM-AGENT",
+    "target_name": "CommercialLLMAgent",
+    "architecture_tier": "external_blackbox",
+    "capabilities": {
+      "memory_persistence": false,
+      "memory_retrieval": false,
+      "context_injection": false,
+      "decision_coupling": false,
+      "policy_enforcement_point": true,
+      "parameter_scope_validation": true,
+      "tool_execution": true,
+      "mcp_gateway_interception": true,
+      "commercial_api": true
+    },
+    "observability_state": "partially_observable",
+    "adapter_type": "commercial_api",
+    "supported_evidence_types": [
+      "tool_execution_log",
+      "state_transition_trace",
+      "authorization_check_receipt"
+    ],
+    "multi_agent": false,
+    "agent_count": 1,
+    "delegation": false,
+    "message_trace": false,
+    "trust_graph": false,
+    "delegation_depth": 1,
+    "max_agent_hops": 1,
+    "trust_observable": false,
+    "description": "Commercial blackbox LLM agent (GPT-4o/Claude/DeepSeek API) with MCP Gateway control."
+  },
+  {
+    "target_id": "TARGET-MULTI-AGENT-COORDINATOR-EXECUTOR",
+    "target_name": "MultiAgentCoordinatorExecutor",
+    "architecture_tier": "multi_agent_system",
+    "capabilities": {
+      "memory_persistence": false,
+      "memory_retrieval": false,
+      "context_injection": false,
+      "decision_coupling": false,
+      "policy_enforcement_point": true,
+      "tool_execution": true,
+      "multi_agent": true,
+      "delegation": true,
+      "message_trace": true
+    },
+    "observability_state": "observable",
+    "adapter_type": "multi_agent_bus",
+    "supported_evidence_types": [
+      "tool_execution_log",
+      "state_transition_trace",
+      "agent_message_trace",
+      "delegation_receipt",
+      "identity_verification_receipt"
+    ],
+    "multi_agent": true,
+    "agent_count": 2,
+    "delegation": true,
+    "message_trace": true,
+    "trust_graph": false,
+    "delegation_depth": 1,
+    "max_agent_hops": 1,
+    "trust_observable": false,
+    "description": "Collaborative Multi-Agent System comprising Planner/Coordinator and Tool Executor."
+  },
+  {
+    "target_id": "TARGET-MULTI-AGENT-TRUST-NETWORK",
+    "target_name": "MultiAgentTrustNetwork",
+    "architecture_tier": "trust_network",
+    "capabilities": {
+      "memory_persistence": false,
+      "memory_retrieval": false,
+      "context_injection": false,
+      "decision_coupling": false,
+      "policy_enforcement_point": true,
+      "tool_execution": true,
+      "multi_agent": true,
+      "delegation": true,
+      "message_trace": true,
+      "trust_graph": true
+    },
+    "observability_state": "observable",
+    "adapter_type": "trust_network_engine",
+    "supported_evidence_types": [
+      "tool_execution_log",
+      "state_transition_trace",
+      "trust_propagation_trace",
+      "delegation_chain_receipt",
+      "trust_validation_receipt"
+    ],
+    "multi_agent": true,
+    "agent_count": 3,
+    "delegation": true,
+    "message_trace": true,
+    "trust_graph": true,
+    "delegation_depth": 3,
+    "max_agent_hops": 3,
+    "trust_observable": true,
+    "description": "3-Tier Multi-Agent Trust Network with transitive delegation inspection and decay tracking."
+  }
+]

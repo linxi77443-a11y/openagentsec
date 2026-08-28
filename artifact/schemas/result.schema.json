@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OracleResult",
+  "type": "object",
+  "required": [
+    "oracle_id",
+    "objective_id",
+    "policy_id",
+    "target_id",
+    "decision",
+    "violated_invariants"
+  ],
+  "properties": {
+    "oracle_id": {
+      "type": "string"
+    },
+    "objective_id": {
+      "type": "string"
+    },
+    "policy_id": {
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "CONFIRMED_DEVIATION",
+        "NO_CONFIRMED_DEVIATION",
+        "INCONCLUSIVE"
+      ]
+    },
+    "violated_invariants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

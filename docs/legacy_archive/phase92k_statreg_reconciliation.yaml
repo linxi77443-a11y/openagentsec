@@ -1,0 +1,47 @@
+# Phase-92K — Statistical Regression Reconciliation
+---
+phase: 92K
+task_id: M-BATCH-WS-STATREG
+
+reconciliation:
+  baseline_version: "batch-rt-001-v1"
+  sample_size: 5
+  seed: 42
+  sort_rule: "entry_id ascending"
+  content_checksum: "sha256:<SIM_BASELINE_CHECKSUM>"
+  metrics:
+    - decision_distribution
+    - signal_distribution
+    - blocking_rate
+    - approval_rate
+  thresholds:
+    decision_delta: 0.05
+    signal_delta: 0.05
+    blocking_rate_delta: 0.0
+  tolerance: 0.0
+
+  baseline:
+    allowed: 2
+    blocked: 2
+    approval_required: 1
+
+  current:
+    allowed: 2
+    blocked: 2
+    approval_required: 1
+
+  delta: 0.0
+  regression_detected: false
+  affected_signals: []
+  baseline_update_allowed: false
+  baseline_update_reason: "相同 seed + 相同 corpus 必须产生相同分布，无漂移无需更新"
+
+  production_safety_claimed: false
+
+coverage_credit: 0
+coverage_credit_reason: "statistical engineering capability, not module coverage"
+
+prd_references:
+  - "原 PRD §6 — coverage_depth 定义"
+  - "原 PRD §10 — 核心资产链"
+  - "原 PRD §13 — 工程事项"
