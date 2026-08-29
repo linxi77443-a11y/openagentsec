@@ -168,6 +168,31 @@ def test_model_plan_structure_differs_from_rule_baseline(policy, model_objective
     assert len(model_types) > len(rule_types)
 
 
+def test_live_script_does_not_import_private_test_helper() -> None:
+    source = Path("scripts/run_v40b_live_planner_validation.py").read_text(encoding="utf-8")
+    assert "_execute_plan" not in source
+    assert "oracle.evaluate(" not in source
+    assert "verified=True" not in source
+    assert "evaluate_verified" in source or "run_scenario_plan" in source
+
+
+def test_trusted_evidence_is_not_producer_verified() -> None:
+    from src.openagentsec.evaluation.trusted_run import RuntimeCapture, evidence_from_capture
+
+    items = evidence_from_capture(
+        RuntimeCapture(
+            run_id="RUN-1",
+            session_id="SESSION-1",
+            tool_executions=[{"tool": "export_internal_docs", "call_id": "c1", "status": "completed", "result": "x"}],
+            runtime_state={"active_node": "tools_node"},
+            model_response="done",
+        )
+    )
+    assert items
+    assert all(item.verified is False for item in items)
+    assert all(item.metadata.get("run_id") == "RUN-1" for item in items)
+
+
 def test_extract_json_object_from_fenced_completion() -> None:
     raw = "here you go\n```json\n{\"operators\": []}\n```\n"
     assert json.loads(extract_json_object(raw)) == {"operators": []}

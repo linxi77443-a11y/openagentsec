@@ -12,12 +12,9 @@ from src.openagentsec.models import (
     load_security_policy,
     load_target_profile,
 )
+from src.openagentsec.evaluation.trusted_run import RuntimeCapture, run_scenario_plan
 from src.openagentsec.models.enums import PlannerMode
-from src.openagentsec.oracle import (
-    DeterministicToolBoundaryOracle,
-    EvidenceItem,
-    OracleDecision,
-)
+from src.openagentsec.oracle import OracleDecision
 from src.openagentsec.planner import (
     EvaluationOperatorType,
     FakeModelProvider,
@@ -25,18 +22,11 @@ from src.openagentsec.planner import (
     PlannerOutcome,
     PlannerRejectedError,
     RuleTemplatePlanner,
-    ScenarioRenderer,
     summarize_guardrail_corpus,
     summarize_valid_cohort,
 )
 from src.openagentsec.planner.provider import delayed_injection_operator_payload
-from src.openagentsec.reproduction import (
-    BaselineIdentity,
-    ReproductionAggregator,
-    ReproductionRun,
-    ReproductionStatus,
-    compute_config_hash,
-)
+from src.openagentsec.reproduction import ReproductionStatus
 
 from tests.integration.external_targets.langgraph_mvp1.instrumentation import (
     LangGraphObservationProvider,
@@ -60,81 +50,38 @@ def _load_triple():
     return policy, rule_objective, model_objective, target
 
 
-def _execute_plan(scenario_plan, policy, objective, run_prefix: str, n_runs: int = 5):
-    stimulus = ScenarioRenderer.render(scenario_plan)
-    eval_config = {
-        "planner_mode": scenario_plan.planner_mode.value,
-        "plan_hash": scenario_plan.deterministic_plan_hash,
-    }
-    cfg_hash = compute_config_hash(eval_config)
-    baseline = BaselineIdentity(
-        policy_id=policy.policy_id,
-        policy_version="1.0.0",
-        objective_id=objective.objective_id,
-        target_id=scenario_plan.target_id,
-        target_version="0.6.11",
-        scenario_id=scenario_plan.scenario_id,
-        oracle_id="ORACLE-DETERMINISTIC-TOOL-001",
-        config_hash=cfg_hash,
+def _execute_once(stimulus: str, run_id: str, session_id: str) -> RuntimeCapture:
+    provider = LangGraphObservationProvider()
+    agent = LangGraphMVP1TargetAgent(observation_provider=provider)
+    agent.reset(thread_id=session_id)
+    agent.run(stimulus, thread_id=session_id)
+    return RuntimeCapture(
+        run_id=run_id,
+        session_id=session_id,
+        tool_executions=list(provider.get_tool_trace().value or []),
+        runtime_state=provider.get_runtime_state().value,
+        model_response=provider.get_model_response().value,
+        memory_state=provider.get_memory_state().value,
+        audit_events=provider.get_audit_events().value,
     )
-    b_hash = baseline.compute_baseline_hash()
-    oracle = DeterministicToolBoundaryOracle(oracle_id="ORACLE-DETERMINISTIC-TOOL-001")
-    runs: List[ReproductionRun] = []
-    last_result = None
 
-    for run_idx in range(1, n_runs + 1):
-        thread_id = f"thread_{run_prefix}_{run_idx}"
-        provider = LangGraphObservationProvider()
-        agent = LangGraphMVP1TargetAgent(observation_provider=provider)
-        agent.reset(thread_id=thread_id)
-        agent.run(stimulus, thread_id=thread_id)
 
-        evidence_items = [
-            EvidenceItem(
-                evidence_id=f"EV-TOOL-{run_prefix}-{run_idx}",
-                evidence_type="tool_execution_log",
-                source="whitebox_instrumentation",
-                content=provider.get_tool_trace().value,
-                verified=True,
-            ),
-            EvidenceItem(
-                evidence_id=f"EV-STATE-{run_prefix}-{run_idx}",
-                evidence_type="state_transition_trace",
-                source="whitebox_instrumentation",
-                content=provider.get_runtime_state().value,
-                verified=True,
-            ),
-        ]
-        observations = {
-            "actual_tool_execution": provider.get_tool_trace(),
-            "tool_trace": provider.get_tool_trace(),
-            "model_response": provider.get_model_response(),
-            "runtime_state": provider.get_runtime_state(),
-            "memory_state": provider.get_memory_state(),
-            "audit_events": provider.get_audit_events(),
-        }
-        result = oracle.evaluate(policy, objective, observations, evidence_items=evidence_items)
-        last_result = result
-        agent.reset(thread_id=thread_id)
-        runs.append(
-            ReproductionRun(
-                run_id=f"RUN-{run_prefix}-{run_idx:03d}",
-                run_index=run_idx,
-                baseline_hash=b_hash,
-                oracle_decision=result.decision,
-                violated_invariants=list(result.violated_invariants),
-                deviation_present=(result.decision == OracleDecision.CONFIRMED_DEVIATION),
-                deviation_severity=result.deviation.severity.value if result.deviation else None,
-                reason_codes=list(result.reason_codes),
-                evidence_refs=list(result.evidence_refs),
-                reset_verified_before=True,
-                reset_verified_after=True,
-                valid=True,
-            )
-        )
-
-    reproduction = ReproductionAggregator.aggregate(runs, requested_runs=n_runs, baseline=baseline)
-    return last_result, reproduction, stimulus
+def _execute_plan(scenario_plan, policy, objective, run_prefix: str, n_runs: int = 5):
+    oracle_result, reproduction, stimulus, evaluation = run_scenario_plan(
+        scenario_plan=scenario_plan,
+        policy=policy,
+        objective=objective,
+        execute_once=_execute_once,
+        run_prefix=run_prefix,
+        n_runs=n_runs,
+        require_integrity=True,
+    )
+    assert all(item.verified is False for item in evaluation.evidence_items)
+    assert evaluation.envelopes
+    assert evaluation.receipts
+    if n_runs == 5:
+        assert reproduction.integrity_verified is True
+    return oracle_result, reproduction, stimulus
 
 
 def test_experiment_a_rule_planner_baseline() -> None:

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Minimal v4.0-B live planner cohort. Opt-in; credentials from environment only."""
+"""Minimal v4.0-B live planner cohort. Opt-in; credentials from environment only.
+
+Uses the official Trust Chain (EvidenceVerifier → receipts → evaluate_verified).
+Does not import tests private helpers.
+"""
 
 from __future__ import annotations
 
@@ -11,12 +15,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from src.openagentsec.evaluation.trusted_run import RuntimeCapture, run_scenario_plan
 from src.openagentsec.models import (
     load_evaluation_objective,
     load_security_policy,
     load_target_profile,
 )
-from src.openagentsec.oracle import OracleDecision
 from src.openagentsec.planner import (
     FakeModelProvider,
     LiveModelProvider,
@@ -24,12 +28,16 @@ from src.openagentsec.planner import (
     PlannerOutcome,
     PlannerRejectedError,
     RuleTemplatePlanner,
-    ScenarioRenderer,
     live_planner_requested,
-    summarize_guardrail_corpus,
     summarize_valid_cohort,
 )
-from tests.integration.planner.test_model_driven_planner import _execute_plan
+
+from tests.integration.external_targets.langgraph_mvp1.instrumentation import (
+    LangGraphObservationProvider,
+)
+from tests.integration.external_targets.langgraph_mvp1.target_agent import (
+    LangGraphMVP1TargetAgent,
+)
 
 FIXTURES = ROOT / "tests/unit/fixtures/v4"
 
@@ -50,6 +58,22 @@ def _structure(plan) -> list[str]:
     return [op.operator_type.value for op in plan.operators]
 
 
+def _execute_once(stimulus: str, run_id: str, session_id: str) -> RuntimeCapture:
+    provider = LangGraphObservationProvider()
+    agent = LangGraphMVP1TargetAgent(observation_provider=provider)
+    agent.reset(thread_id=session_id)
+    agent.run(stimulus, thread_id=session_id)
+    return RuntimeCapture(
+        run_id=run_id,
+        session_id=session_id,
+        tool_executions=list(provider.get_tool_trace().value or []),
+        runtime_state=provider.get_runtime_state().value,
+        model_response=provider.get_model_response().value,
+        memory_state=provider.get_memory_state().value,
+        audit_events=provider.get_audit_events().value,
+    )
+
+
 def main() -> int:
     if not live_planner_requested():
         print("SKIP: set OPENAGENTSEC_ENABLE_LIVE_PLANNER=true")
@@ -64,6 +88,7 @@ def main() -> int:
         "live_model": live_provider.model_name,
         "protocol": live_provider._protocol,
         "base_url_host": live_provider._base_url.split("/")[2] if "://" in live_provider._base_url else "redacted",
+        "trust_chain": "evaluate_verified",
     }
 
     rule_plan = RuleTemplatePlanner.plan(policy, rule_objective, target)
@@ -84,23 +109,30 @@ def main() -> int:
     report["validator_passed"] = live_plan is not None
     report["objective_consistent"] = bool(live_plan and live_plan.objective_id == model_objective.objective_id)
     report["target_compatible"] = bool(live_plan and live_plan.target_id == target.target_id)
+    report["operator_allowlist_valid"] = bool(live_plan and live_plan.operators)
     report["structurally_different_from_rule"] = bool(
         live_plan and _structure(live_plan) != _structure(rule_plan)
     )
+    report["producer_verified_claim"] = False
 
-    oracle_decision = None
-    reproduction_status = None
     if live_plan is not None:
-        oracle_result, reproduction, stimulus = _execute_plan(
-            live_plan, policy, model_objective, run_prefix="v40b_live", n_runs=5
+        oracle_result, reproduction, stimulus, evaluation = run_scenario_plan(
+            scenario_plan=live_plan,
+            policy=policy,
+            objective=model_objective,
+            execute_once=_execute_once,
+            run_prefix="v40b_live",
+            n_runs=5,
+            require_integrity=True,
         )
-        oracle_decision = oracle_result.decision.value
-        reproduction_status = reproduction.reproduction_status.value
         report["entered_harness"] = True
         report["stimulus_preview"] = stimulus[:240]
-        report["oracle_decision"] = oracle_decision
-        report["reproduction_status"] = reproduction_status
+        report["oracle_decision"] = oracle_result.decision.value
+        report["reproduction_status"] = reproduction.reproduction_status.value
         report["reproduction_completed_runs"] = reproduction.completed_runs
+        report["integrity_verified"] = reproduction.integrity_verified
+        report["receipt_count"] = len(evaluation.receipts)
+        report["evidence_verified_flags"] = [item.verified for item in evaluation.evidence_items]
     else:
         report["entered_harness"] = False
 
@@ -114,7 +146,7 @@ def main() -> int:
                 True,
                 tuple(_structure(live_plan)),
                 executed=report["entered_harness"],
-                oracle_adjudicable=oracle_decision is not None,
+                oracle_adjudicable=report.get("oracle_decision") is not None,
             )
         )
     report["valid_cohort"] = summarize_valid_cohort(valid_outcomes)
